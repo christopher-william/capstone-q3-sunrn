@@ -9,4 +9,4 @@ mg = Migrate()
 
 
 class Populate_hsp(db.Model):
-    pass
+    id = db.
