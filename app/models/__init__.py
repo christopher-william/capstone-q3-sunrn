@@ -6,3 +6,7 @@ from flask_migrate import Migrate
 db = SQLAlchemy()
 mg = Migrate()
 # ma = Marshmallow()
+
+
+class Populate_hsp(db.Model):
+    pass
