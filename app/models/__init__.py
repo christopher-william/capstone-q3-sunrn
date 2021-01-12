@@ -10,7 +10,7 @@ mg = Migrate()
 
 class Hsp(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    city = db.Column(db.String(80), unique=True, nullable=False)
+    city = db.Column(db.String(80), unique=False, nullable=False)
     uf = db.Column(db.String(120), unique=False, nullable=False)
     md_anual = db.Column(db.Integer, nullable=False)
     lon = db.Column(db.Numeric, nullable=False)
