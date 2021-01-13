@@ -1,8 +1,10 @@
 from flask import Flask
+from flask_restful import Api
+
+from .seller import SellerRoute
 
 
 def configure(app: Flask):
-    # EXAMPLE
-    # from .users import bp_user
-    # app.register_blueprint(bp_user)
-    pass
+
+    api = Api(app)
+    api.add_resource(SellerRoute, '/seller')

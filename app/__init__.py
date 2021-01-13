@@ -1,8 +1,7 @@
-from flask import Flask
-from .models import db
-from .models import mg
 from environs import Env
+from flask import Flask
 
+from .models import db, mg
 from .views import configure as views_configure
 
 
