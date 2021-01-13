@@ -1,15 +1,14 @@
-from copy import Error
 from http import HTTPStatus
+from flask import current_app
 
 from app.models import db
-from app.models.seller import Seller, seller_schema
+from app.models.seller_model import Seller, seller_schema
 from sqlalchemy.exc import IntegrityError
 
 from .http import build_api_response
 
 
 def login_seller(data):
-
     try:
         seller = Seller.query.filter_by(
             email=data['email'], password=data['password']).first()
@@ -32,8 +31,10 @@ def create_seller(data):
     )
 
     try:
-        db.session.add(seller)
-        db.session.commit()
+        session = current_app.db.session
+        session.add(seller)
+        session.commit()
         return build_api_response(HTTPStatus.CREATED, seller_schema.dump(seller))
+    
     except IntegrityError:
         return build_api_response(HTTPStatus.BAD_REQUEST)

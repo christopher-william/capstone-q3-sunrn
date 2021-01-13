@@ -21,3 +21,4 @@ from .inverter_price_model import Inverter_price
 from .lead_model import Lead
 from .panel_price_model import Panel_price
 from .simulation_model import Simulation
+from .seller_model import Seller
