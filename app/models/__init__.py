@@ -22,7 +22,7 @@ class Hsp(db.Model):
 
 class Inverter_price(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    model = db.Column(db.String(10), nullable=False)
+    model = db.Column(db.String(100), nullable=False)
     brand = db.Column(db.String(100), nullable=False)
     power = db.Column(db.Integer, nullable=False)
     price = db.Column(db.Numeric, nullable=False)
@@ -33,7 +33,7 @@ class Inverter_price(db.Model):
 
 class Panel_price(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    model = db.Column(db.String(10), nullable=False)
+    model = db.Column(db.String(100), nullable=False)
     brand = db.Column(db.String(100), nullable=False)
     power = db.Column(db.Integer, nullable=False)
     price = db.Column(db.Numeric, nullable=False)
