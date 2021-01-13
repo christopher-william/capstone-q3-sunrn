@@ -1,10 +1,8 @@
 from copy import Error
 from http import HTTPStatus
-
 from app.models import db
 from app.models.seller import Seller, seller_schema
 from sqlalchemy.exc import IntegrityError
-
 from .http import build_api_response
 
 
