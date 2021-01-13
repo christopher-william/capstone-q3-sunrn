@@ -1,16 +1,18 @@
 from http import HTTPStatus
 
 
-def build_api_response(http_status):
-    return build_response_message(http_status), http_status
+def build_api_response(http_status, schema=None):
+    return build_response_message(http_status, schema), http_status
 
 
-def build_response_message(http_status):
+def build_response_message(http_status, schema):
     messages = {
         HTTPStatus.BAD_REQUEST: 'Bad request',
-        HTTPStatus.CREATED: 'Created',
+        HTTPStatus.CREATED: schema,
         HTTPStatus.NOT_FOUND: 'Not found',
-        HTTPStatus.OK: 'ok'
+        HTTPStatus.OK: schema
     }
 
-    return {'message': messages[http_status]}
+    request = messages[http_status]
+
+    return request
