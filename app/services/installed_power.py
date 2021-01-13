@@ -9,4 +9,4 @@ def installed_power(db_hsp: Hsp, energy_data: Energy_data):
     eficience = 1 - 0.2
     ppico_real = ppico/eficience
 
-    return ppico
+    return ppico_real
