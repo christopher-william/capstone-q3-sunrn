@@ -1,8 +1,11 @@
 from flask import Flask
+from flask_restful import Api
+
+from .seller_view import SellerLogin, SellerRegister
 
 
 def configure(app: Flask):
-    # EXAMPLE
-    # from .users import bp_user
-    # app.register_blueprint(bp_user)
-    pass
+
+    api = Api(app)
+    api.add_resource(SellerRegister, '/register')
+    api.add_resource(SellerLogin, '/login')

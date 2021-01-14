@@ -2,8 +2,6 @@ from . import db
 
 
 class Panel_price(db.Model):
-    __tablename__ = "panelprice"
-    
     id = db.Column(db.Integer, primary_key=True)
     model = db.Column(db.String(100), nullable=False)
     brand = db.Column(db.String(100), nullable=False)

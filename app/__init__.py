@@ -1,7 +1,8 @@
-from flask import Flask
 from environs import Env
+from flask import Flask
 
 from .models import configure as db_configure
+from .models import db, mg
 from .views import configure as views_configure
 
 
@@ -10,7 +11,6 @@ def create_app(mode='development'):
     env.read_env()
 
     app = Flask(__name__)
-    
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = env.bool(
         'SQLALCHEMY_TRACK_MODIFICATIONS'
     )
