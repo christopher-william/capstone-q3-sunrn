@@ -1,8 +1,7 @@
 from http import HTTPStatus
 from flask import current_app
 
-from app.models import db
-from app.models.seller_model import Seller, seller_schema
+from app.models import Seller, seller_schema
 from sqlalchemy.exc import IntegrityError
 
 from .http import build_api_response

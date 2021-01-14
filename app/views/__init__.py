@@ -11,5 +11,4 @@ def configure(app: Flask):
     api.add_resource(SellerRegister, '/register')
     api.add_resource(SellerLogin, '/login')
 
-    api.add_resource(Message, '/message/<int:id>')
-    api.add_resource(Message, '/message')
+    api.add_resource(Message, '/message', '/message/<int:id>')

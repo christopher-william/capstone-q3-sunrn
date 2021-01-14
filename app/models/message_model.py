@@ -22,4 +22,4 @@ class MessageSchema(ma.SQLAlchemySchema):
 
 
 message_schema = MessageSchema()
-messages_schema = MessageSchema(meny=True)
+messages_schema = MessageSchema(many=True)

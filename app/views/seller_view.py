@@ -1,4 +1,4 @@
-from app.services.seller_services import create_seller, login_seller
+from app.services.seller_service import create_seller, login_seller
 from flask import request
 from flask_restful import Resource
 
