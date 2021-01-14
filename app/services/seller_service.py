@@ -35,6 +35,6 @@ def create_seller(data):
         session.add(seller)
         session.commit()
         return build_api_response(HTTPStatus.CREATED, seller_schema.dump(seller))
-    
+
     except IntegrityError:
         return build_api_response(HTTPStatus.BAD_REQUEST)
