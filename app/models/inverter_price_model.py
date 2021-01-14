@@ -2,7 +2,7 @@ from . import db
 
 
 class Inverter_price(db.Model):
-    __tablename__ = "inverterprice"
+    __tablename__ = "inverter_price"
     
     id = db.Column(db.Integer, primary_key=True)
     model = db.Column(db.String(100), nullable=False)

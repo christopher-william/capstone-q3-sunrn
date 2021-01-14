@@ -2,7 +2,7 @@ from . import db
 
 
 class Energy_data(db.Model):
-    __tablename__ = "energydata"
+    __tablename__ = "energy_data"
     
     id = db.Column(db.Integer, primary_key=True)
     month_energy = db.Column(db.Numeric, nullable=False)
