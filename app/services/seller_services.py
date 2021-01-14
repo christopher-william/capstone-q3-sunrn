@@ -10,9 +10,8 @@ from app.services.encode_service import encode_password
 def login_seller(data):
     try:
         encoded_password = encode_password(data)
-
         seller = Seller.query.filter_by(
-            email=data['email'], password=encode_password).first()
+            email=data['email'], password=encoded_password).first()
 
         if not seller:
             return build_api_response(HTTPStatus.NOT_FOUND)
@@ -25,7 +24,6 @@ def login_seller(data):
 
 def create_seller(data):
     encoded_password = encode_password(data)
-    print(encode_password)
     seller = Seller(
         name=data['name'],
         email=data['email'],
