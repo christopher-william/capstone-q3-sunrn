@@ -1,5 +1,5 @@
-from flask import Flask
 from environs import Env
+from flask import Flask
 
 from .models import configure as db_configure
 from .views import configure as views_configure
