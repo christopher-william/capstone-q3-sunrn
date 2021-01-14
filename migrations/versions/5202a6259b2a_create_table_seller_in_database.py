@@ -1,8 +1,8 @@
-"""Initial migration.
+"""create table seller in database
 
-Revision ID: b35d3daf14cb
-Revises: 
-Create Date: 2021-01-13 12:28:26.503125
+Revision ID: 5202a6259b2a
+Revises: 383bc9da3e36
+Create Date: 2021-01-14 10:19:39.936195
 
 """
 from alembic import op
@@ -10,8 +10,8 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'b35d3daf14cb'
-down_revision = None
+revision = '5202a6259b2a'
+down_revision = '383bc9da3e36'
 branch_labels = None
 depends_on = None
 
@@ -22,8 +22,9 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=100), nullable=False),
     sa.Column('email', sa.String(length=100), nullable=False),
-    sa.Column('password', sa.String(length=250), nullable=False),
-    sa.PrimaryKeyConstraint('id')
+    sa.Column('password', sa.String(), nullable=False),
+    sa.PrimaryKeyConstraint('id'),
+    sa.UniqueConstraint('email')
     )
     # ### end Alembic commands ###
 
