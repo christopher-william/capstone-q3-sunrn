@@ -17,8 +17,7 @@ class HspSchema(ma.SQLAlchemySchema):
     class Meta:
         
         fields = (
-            "id", "city", "uf", "md_anual",
-            "lon", "lat", "leads"
+            "id", "city", "uf"
         )
         
         id = ma.auto_field()

@@ -4,14 +4,13 @@ from flask_restful import Resource
 
 class HspUf(Resource):
     
-    def get(self):
-        response = get_uf_or_all()
+    def get(self, **kwargs):
+        try:
+            uf = kwargs.get("uf")
+            response = get_uf_or_all(uf=uf)
+            
+        except:
+            response = get_uf_or_all()
         
         return response
     
-class HspsByUf(Resource):
-    
-    def get(self, uf):
-        response = get_uf_or_all(uf=uf)
-        
-        return response
