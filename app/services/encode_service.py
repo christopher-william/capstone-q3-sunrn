@@ -7,6 +7,6 @@ def encode_password(data):
             {'email': data['email']}, data['password'], algorithm="HS256")
 
     except:
-        'error'
+        return None
 
     return str(criptography)

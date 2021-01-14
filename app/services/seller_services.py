@@ -25,6 +25,7 @@ def login_seller(data):
 
 def create_seller(data):
     encoded_password = encode_password(data)
+    print(encode_password)
     seller = Seller(
         name=data['name'],
         email=data['email'],
