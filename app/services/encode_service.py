@@ -9,4 +9,4 @@ def encode_password(data):
     except:
         return None
 
-    return str(criptography)
+    return criptography.decode("utf-8") 
