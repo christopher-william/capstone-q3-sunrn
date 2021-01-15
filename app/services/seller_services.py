@@ -1,6 +1,6 @@
 from http import HTTPStatus
 from flask import current_app
-from flask_jwt_extended import create_access_token
+from flask_jwt_extended import create_access_token, create_refresh_token
 from datetime import timedelta
 from app.models import db
 from app.models.seller_model import Seller, seller_schema
@@ -13,12 +13,14 @@ def login_seller(data):
         encoded_password = encode_password(data)
         seller = Seller.query.filter_by(
             email=data['email'], password=encoded_password).first()
-        acess_token = create_access_token(identity=seller.id, expires_delta=timedelta(days=0, seconds=3600))
+            
+        acess_token = create_access_token(identity=seller.id, expires_delta=timedelta(days=1))
+        refresh_token = create_refresh_token(identity=seller.id, expires_delta=timedelta(days=1))
 
         if not seller:
             return build_api_response(HTTPStatus.NOT_FOUND)
 
-        return build_api_response(HTTPStatus.OK, {'auth_token':acess_token})
+        return build_api_response(HTTPStatus.OK, {'data':[{'auth_token':acess_token, 'refresh_token':refresh_token}]})
 
     except IntegrityError:
         return build_api_response(HTTPStatus.BAD_REQUEST)
