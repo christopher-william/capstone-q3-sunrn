@@ -3,7 +3,7 @@ def test_create_seller(client):
 
     new_seller = {
         'name': "Christopher",
-        'email': "christopher@gmail.com",
+        'email': "christopherk@gmail.com",
         'password': "121314"
     }
     result = client.post('/register', json=new_seller)
@@ -14,7 +14,7 @@ def test_create_seller(client):
 def test_login_seller(client):
 
     seller = {
-        'email': "christopher@gmail.com",
+        'email': "christopherk@gmail.com",
         'password': "121314"
     }
     result = client.post('/login', json=seller)
