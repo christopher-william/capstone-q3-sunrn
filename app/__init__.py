@@ -11,7 +11,7 @@ def create_app(mode='development'):
     env.read_env()
 
     app = Flask(__name__)
-    
+
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = env.bool(
         'SQLALCHEMY_TRACK_MODIFICATIONS'
     )
