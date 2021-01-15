@@ -20,6 +20,8 @@ from .hsp_model import Hsp
 from .inverter_price_model import Inverter_price
 from .panel_price_model import Panel_price
 from .energy_data_model import Energy_data
-from .lead_model import Lead
+from .lead_model import Lead, lead_schema
 from .simulation_model import Simulation
-from .seller_model import Seller
+from .seller_model import Seller, seller_schema, sellers_schema
+from .message_model import Message, message_schema, messages_schema
+
