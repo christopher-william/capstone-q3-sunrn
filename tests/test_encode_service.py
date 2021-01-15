@@ -4,7 +4,7 @@ def test_should_return_a_encoded_password():
         'email': 'example@example.com',
         'password': '12345'
     }
+    expected = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImV4YW1wbGVAZXhhbXBsZS5jb20ifQ.mNwo9wLtoMSolkjpMLwMNdVw8uVNzWrdTAR_sQ_me0U'
     encoded_password = encode_password(example_data) 
-    print(encoded_password)
 
-    assert 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImV4YW1wbGVAZXhhbXBsZS5jb20ifQ.mNwo9wLtoMSolkjpMLwMNdVw8uVNzWrdTAR_sQ_me0U' == encoded_password, 'The password should be encoded'
+    assert expected == encoded_password, 'The password should be encoded'
