@@ -1,7 +1,7 @@
 from http import HTTPStatus
-from flask import current_app
 
 from app.models import Seller, seller_schema
+from flask import current_app
 
 from .http import build_api_response
 
