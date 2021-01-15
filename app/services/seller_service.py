@@ -20,7 +20,7 @@ def login_seller(data):
         if not seller:
             return build_api_response(HTTPStatus.NOT_FOUND)
 
-        return build_api_response(HTTPStatus.OK, [{'auth_token':acess_token, 'refresh_token':refresh_token}]
+        return build_api_response(HTTPStatus.OK, {'auth_token':acess_token, 'refresh_token':refresh_token})
 
     except:
         return build_api_response(HTTPStatus.BAD_REQUEST)
