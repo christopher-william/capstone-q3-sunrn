@@ -2,10 +2,10 @@ import random
 
 
 def generated_email(max):
-    return ''.join([random.choice("abcde") for _ in range(max)])
+    return ''.join([random.choice("abcde") for _ in range(max)]) + '@gmail.com'
 
 
-random_word = generated_email(20)
+random_email = generated_email(20)
 
 
 def new_seller_json():
@@ -13,7 +13,7 @@ def new_seller_json():
 
     return {
         'name': "Christopher",
-        'email': f"{random_word}@gmail.com",
+        'email': random_email,
         'password': "121314"
     }
 
