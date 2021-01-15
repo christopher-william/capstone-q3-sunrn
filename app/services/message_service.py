@@ -1,31 +1,36 @@
-from app.models import Message, Lead, lead_schema, message_schema, messages_schema
-from sqlalchemy.exc import IntegrityError
 from http import HTTPStatus
-from .http import build_api_response
+
+from app.models import (Lead, Message, lead_schema, message_schema,
+                        messages_schema)
 from flask import current_app
+
+from .http import build_api_response
 
 
 def create_message(data):
 
-    message = Message(
-        classification=data['classification'],
-        message=data['message'],
-        lead_id=data['lead_id']
-    )
-
     try:
+
+        message = Message(
+            classification=data['classification'],
+            message=data['message'],
+            lead_id=data['lead_id']
+        )
+
         session = current_app.db.session
         session.add(message)
         session.commit()
+
         return build_api_response(HTTPStatus.CREATED, message_schema.dump(message))
 
-    except IntegrityError:
+    except:
         return build_api_response(HTTPStatus.BAD_REQUEST)
 
 
 def get_lead_and_message(id):
 
     try:
+
         message = Message.query.get(id)
         lead = Lead.query.get(message.lead_id)
 
@@ -36,5 +41,5 @@ def get_lead_and_message(id):
 
         return build_api_response(HTTPStatus.OK, lead_schema_rs)
 
-    except IntegrityError:
+    except:
         return build_api_response(HTTPStatus.BAD_REQUEST)
