@@ -13,6 +13,6 @@ def build_response_message(http_status, schema):
         HTTPStatus.OK: schema
     }
 
-    request = messages[http_status]
+    request = {'data': messages[http_status]}
 
     return request
