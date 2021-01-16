@@ -1,5 +1,7 @@
 import ast
 
+from flask import json
+
 
 def new_message_json():
     """retorna o json com as informações da nova menssagem"""
@@ -11,11 +13,6 @@ def new_message_json():
     }
 
 
-def decode_data(response):
-    dict_str = response.decode("UTF-8")
-    return ast.literal_eval(dict_str)
-
-
 def test_create_message(client):
     """cria uma nova messagem e verifica as informações do json sem o id"""
 
@@ -24,7 +21,7 @@ def test_create_message(client):
     response = client.post('/message', json=new_message)
 
     status = response.status_code
-    data = decode_data(response.data)['data']
+    data = json.loads(response.data)['data']
     data.pop('id')
     expected = new_message.copy()
 

@@ -1,3 +1,4 @@
+from flask import json
 
 
 def new_lead_json():
@@ -19,10 +20,10 @@ def test_create_new_lead(client):
 
     response = client.post('/lead', json=new_lead)
 
-    data = response.data
-    status = response.status_code
+    # data = json.loads(response.data)
+    # status = response.status_code
 
-    expected = {"data": new_lead}
+    # expected = {"data": new_lead}
 
     # assert data == expected
     # assert status == 201
