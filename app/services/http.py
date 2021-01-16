@@ -8,8 +8,8 @@ def build_api_response(http_status, schema=None):
 def build_response_message(http_status, schema):
     messages = {
         HTTPStatus.BAD_REQUEST: 'Bad request',
-        HTTPStatus.CREATED: schema,
         HTTPStatus.NOT_FOUND: 'Not found',
+        HTTPStatus.CREATED: schema,
         HTTPStatus.OK: schema
     }
 

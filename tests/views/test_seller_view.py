@@ -1,5 +1,5 @@
 import random
-
+from flask import json
 
 def generated_email(max):
     return ''.join([random.choice("abcde") for _ in range(max)]) + '@gmail.com'
@@ -21,12 +21,14 @@ def new_seller_json():
 def test_create_seller(client):
     """cria um novo seller e compara o status"""
 
-    result = client.post('/register', json=new_seller_json())
-    assert result.status_code == 201
+    response = client.post('/register', json=new_seller_json())
+    
+    assert response.status_code == 201
 
 
 def test_login_seller(client):
     """loga com o novo seller criado e compara o status"""
 
-    result = client.post('/login', json=new_seller_json())
-    assert result.status_code == 200
+    response = client.post('/login', json=new_seller_json())
+    assert response.status_code == 200
+    
