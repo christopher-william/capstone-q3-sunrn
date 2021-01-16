@@ -22,9 +22,9 @@ def test_create_message(client):
 
     status = response.status_code
     data = json.loads(response.data)['data']
+    print(data)
     data.pop('id')
     expected = new_message.copy()
-
     assert status == 201
     assert data == expected
     assert sorted(data.keys()) == sorted(expected.keys())
