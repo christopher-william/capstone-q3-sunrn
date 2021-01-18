@@ -10,7 +10,7 @@ def test_should_return_a_decoded_data():
     encoded_data = encode_password(data)
     key = data['password']
     
-    result = decode_password(encoded_data, key)
+    result = decode_password(encoded_data, key).get('email')
     expected = data['email']
 
     assert result == expected
