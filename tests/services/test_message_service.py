@@ -1,7 +1,7 @@
 from http import HTTPStatus
 
 from app.services.message_service import create_message, get_lead_and_message
-from tests.services.helper import execute_sql_comand_in_database
+from tests.database_connection import execute_sql_comand_in_database
 
 
 def new_message_json():
