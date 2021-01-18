@@ -1,6 +1,7 @@
 from http import HTTPStatus
 
 from app.services.message_service import create_message, get_lead_and_message
+from tests.services.helper import execute_sql_comand_in_database
 
 
 def new_message_json():
@@ -23,15 +24,15 @@ def test_dict_create_message_with_status_201():
     assert data_result['id'] > 0
     assert type(data_result['id']) is int
 
-    # para que o data_expected acompanhe a mudança do id no database
-    data_expected.update({'id': data_result['id']})
+    last_message_id = execute_sql_comand_in_database(
+        """SELECT id FROM message ORDER BY ID DESC LIMIT 1""")[0][0]
+
+    data_expected.update({'id': last_message_id})
     status_expected = HTTPStatus.CREATED
 
     assert sorted(data_result.keys()) == sorted(data_expected.keys())
     assert sorted(data_result.values()) == sorted(data_expected.values())
     assert status_result == status_expected
-
-    # TODO --> testar a data no database
 
 
 def test_dict_of_get_lead_and_message_with_status_200():
