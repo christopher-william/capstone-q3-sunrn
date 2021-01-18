@@ -8,6 +8,7 @@ class Message(db.Model):
     classification = db.Column(db.Integer, nullable=False)
     message = db.Column(db.String, nullable=False)
     lead_id = db.Column(db.Integer, db.ForeignKey('lead.id'))
+    seller_id = db.Column(db.Intger, db.ForeignKey('seller.id'))
 
 
 class MessageSchema(ma.SQLAlchemySchema):
@@ -19,6 +20,7 @@ class MessageSchema(ma.SQLAlchemySchema):
         classification = ma.auto_field()
         message = ma.auto_field()
         lead_id = ma.auto_field()
+        seller_id = ma.auto_field()
 
 
 message_schema = MessageSchema()
