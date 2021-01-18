@@ -11,7 +11,8 @@ class Lead(db.Model):
     hsp_id = db.Column(db.Integer, db.ForeignKey('hsp.id'))
     energy_id = db.Column(db.Integer, db.ForeignKey('energy_data.id'))
     simulations = db.relationship('Simulation')
-    messages = db.relationship('Message')
+    seller_id = db.relationship('Seller', secondary='message')
+
 
 
 class LeadSchema(ma.SQLAlchemySchema):

@@ -8,6 +8,7 @@ class Seller(db.Model):
     name = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String(100), unique=True, nullable=False)
     password = db.Column(db.String, nullable=False)
+    lead_id = db.relationship('Lead', secondary='messages')
 
     def __repr__(self):
         return f'<Seller {self.name}>'
