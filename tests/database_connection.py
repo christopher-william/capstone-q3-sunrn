@@ -13,7 +13,7 @@ def init_connection():
     password = env.str('DATABASE_PASSWORD')
 
     conn = psycopg2.connect(
-        f"""dbname={dbname} user={user} password={password}"""
+        f"""dbname={dbname} user={user} password={password} host=localhost port=5432"""
     )
 
     cursor = conn.cursor()
@@ -36,4 +36,9 @@ def execute_sql_comand_in_database(query):
 
 records = execute_sql_comand_in_database(
     """SELECT id FROM message ORDER BY ID DESC LIMIT 1""")[0][0]
+print(records)
+
+
+records = execute_sql_comand_in_database(
+    """SELECT * FROM lead """)
 print(records)
