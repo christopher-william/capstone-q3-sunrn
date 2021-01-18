@@ -1,5 +1,3 @@
-import ast
-
 from flask import json
 
 

@@ -1,15 +1,12 @@
-import ast
 import random
 from flask import json
-from flask_jwt_extended import JWTManager
-from app.services.decode_service import decode_password
-from app.services.encode_service import encode_password
 
-def generated_email(max):
+
+def email_generator(max):
     return ''.join([random.choice("abcde") for _ in range(max)]) + '@gmail.com'
 
 
-random_email = generated_email(20)
+random_email = email_generator(20)
 
 
 def new_seller_json():
