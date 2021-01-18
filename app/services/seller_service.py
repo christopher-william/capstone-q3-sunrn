@@ -23,7 +23,14 @@ def login_seller(data):
 
         return build_api_response(
             HTTPStatus.OK, {
-                'auth_token':acess_token, 'refresh_token':refresh_token
+                'refresh_token':refresh_token,
+                'auth_token': acess_token,
+               
+                'user':{
+                    'name': data['name'],
+                    'email': data['email']
+                }
+
                 }
             )
 
@@ -47,7 +54,12 @@ def create_seller(data):
         session.commit()
         return build_api_response(
             HTTPStatus.CREATED, {
-                'auth_token':acess_token
+                'auth_token':acess_token,
+                
+                    'user':{
+                        'name': data['name'],
+                        'email': data['email']
+                    }
                 }
             )
     except:
