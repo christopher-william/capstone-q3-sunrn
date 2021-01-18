@@ -1,7 +1,7 @@
 import ast
 import random
-
 from flask import json
+from flask_jwt_extended import JWTManager
 from app.services.decode_service import decode_password
 from app.services.encode_service import encode_password
 
@@ -27,21 +27,20 @@ def test_create_seller(client):
     json_data = new_seller_json()
     response = client.post('/register', json=json_data)
     token = json.loads(response.data)['data'].get('auth_token')
-    
-    key = json_data['password']
-    print(key)
-    encoded_data = encode_password(json_data)
-    result = decode_password(encoded_data, key).get('user')['email']
-    print(result)
+    result = json.loads(response.data)['data'].get('user')['email']
     expected = json_data['email']
-    
-    assert token == result 
+
+    assert expected == result 
     assert response.status_code == 201
 
 
 def test_login_seller(client):
     """loga com o novo seller criado e compara o status"""
+    json_data = new_seller_json()
+    response = client.post('/login', json=json_data)
+    result = json.loads(response.data)['data'].get('user')['email']
+    expected = json_data['email']
 
-    response = client.post('/login', json=new_seller_json())
+    assert expected == result
     assert response.status_code == 200
     

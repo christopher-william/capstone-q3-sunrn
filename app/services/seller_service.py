@@ -56,10 +56,10 @@ def create_seller(data):
             HTTPStatus.CREATED, {
                 'auth_token':acess_token,
                 
-                 'user':{
-                    'name': data['name'],
-                    'email': data['email']
-                }
+                    'user':{
+                        'name': data['name'],
+                        'email': data['email']
+                    }
                 }
             )
     except:
