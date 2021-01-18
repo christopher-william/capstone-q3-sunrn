@@ -9,7 +9,7 @@ class Message(db.Model):
     message = db.Column(db.String, nullable=False)
     lead_id = db.Column(db.Integer, db.ForeignKey('lead.id', onupdate='CASCADE',
      ondelete='CASCADE'))
-    seller_id = db.Column(db.Intger, db.ForeignKey('seller.id', onupdate='CASCADE',
+    seller_id = db.Column(db.Integer, db.ForeignKey('seller.id', onupdate='CASCADE',
      ondelete='CASCADE') )
 
 
