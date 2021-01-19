@@ -16,6 +16,6 @@ class Simulation(db.Model):
     panel_quantity = db.Column(db.Numeric, nullable=False)
 
     lead_id = db.Column(db.Integer, db.ForeignKey('lead.id'))    
-    panel_id = db.Column(db.Integer, db.ForeignKey('panel.id'))
+    panel_id = db.Column(db.Integer, db.ForeignKey('panel_price.id'))
     inversor_id = db.Column(
         db.Integer, db.ForeignKey('inverter_price.id'))
