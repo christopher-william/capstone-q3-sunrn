@@ -14,9 +14,9 @@ def login_seller(data):
             email=data['email'], password=encoded_password).first()
             
         acess_token = create_access_token(
-            identity=seller.id, expires_delta=timedelta(days=1))
+            identity=seller.id, expires_delta=timedelta(days=0, seconds=3600))
         refresh_token = create_refresh_token(
-            identity=seller.id, expires_delta=timedelta(days=1))
+            identity=seller.id, expires_delta=timedelta(days=7))
 
         if not seller:
             return build_api_response(HTTPStatus.NOT_FOUND)
