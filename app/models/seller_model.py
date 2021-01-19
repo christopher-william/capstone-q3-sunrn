@@ -8,7 +8,7 @@ class Seller(db.Model):
     name = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String(100), unique=True, nullable=False)
     password = db.Column(db.String, nullable=False)
-    lead_id = db.relationship('Lead', secondary='messages')
+    lead_id = db.relationship('Lead', secondary='message')
 
     def __repr__(self):
         return f'<Seller {self.name}>'
@@ -17,12 +17,12 @@ class Seller(db.Model):
 class SellerSchema(ma.SQLAlchemySchema):
     class Meta:
 
-        fields = ('id', 'name', 'email', 'password')
-
-        id = ma.auto_field()
-        name = ma.auto_field()
-        email = ma.auto_field()
-        password = ma.auto_field()
+        model = Seller
+        
+    id = ma.auto_field()
+    name = ma.auto_field()
+    email = ma.auto_field()
+    password = ma.auto_field()
 
 
 seller_schema = SellerSchema()

@@ -1,4 +1,4 @@
-from . import db
+from . import db, ma
 
 
 class Simulation(db.Model):
@@ -19,3 +19,26 @@ class Simulation(db.Model):
     panel_id = db.Column(db.Integer, db.ForeignKey('panel_price.id'))
     inversor_id = db.Column(
         db.Integer, db.ForeignKey('inverter_price.id'))
+    
+
+class SimulationSchema(ma.SQLAlchemySchema):
+    
+    class Meta:
+
+        model = Simulation
+
+    system_cost = ma.auto_field()
+    energy_cost = ma.auto_field()
+    worker_cost = ma.auto_field()
+    project_cost = ma.auto_field()
+    eletric_materials_cost = ma.auto_field()
+    maintanance_cost = ma.auto_field()
+    total_system_cost = ma.auto_field()
+    roi_years = ma.auto_field()
+    panel_quantity = ma.auto_field()
+    lead_id = ma.auto_field()
+    panel_id = ma.auto_field()
+    inversor_id = ma.auto_field()
+
+simulation_schema = SimulationSchema()
+simulations_schema = SimulationSchema(many=True)

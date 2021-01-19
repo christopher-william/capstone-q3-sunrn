@@ -1,9 +1,11 @@
 from app.models import Hsp, Energy_data, Panel_price, energy_data_model
 from .installed_power_service import installed_power
+import json
 
 
 def panel_set_costs(pow_pico, pow_panel, price_panel):
-    panel_set_price = ((pow_pico//pow_panel) + 1) * price_panel
+    price_panel = float(price_panel)
+    panel_set_price = ((pow_pico//pow_panel + 1) * price_panel)
 
     return panel_set_price
 
@@ -39,7 +41,7 @@ def roi_calc(energy_data, inversor_list, panel_list, hsp):
     panel = panel_selector(panel_list, power_pico)
 
     energy_cost = energy_data.month_value*12*25
-    system_cost = inversor.price + panel["panel"].price * panel["quantity"]
+    system_cost = float(inversor.price) + float(panel["panel"].price) * float(panel["quantity"])
     worker_cost = system_cost*0.2  # mão de obra custa em torno de 20% do equipamento
     # criar o projeto fica em média 40% do custo do equipamento
     project_cost = system_cost*0.4
@@ -52,7 +54,6 @@ def roi_calc(energy_data, inversor_list, panel_list, hsp):
         project_cost + eletric_materials_cost + maintenance_cost)
 
     roi_years = (total_system_cost/energy_data.month_value) / 12
-
     return {
         "inversor": inversor,
         "panel": panel,

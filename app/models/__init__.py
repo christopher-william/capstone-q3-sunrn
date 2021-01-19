@@ -16,12 +16,22 @@ def configure(app: Flask):
     app.db = db
 
 
-from .hsp_model import Hsp
-from .inverter_price_model import Inverter_price
-from .panel_price_model import Panel_price
+from .hsp_model import Hsp, hsp_schema, hsps_schema
+
+from .inverter_price_model import (
+    Inverter_price, inversor_price_schema, inversors_prices_schema)
+
+from .panel_price_model import (
+    Panel_price, panel_price_schema, panels_prices_schema)
+
 from .energy_data_model import Energy_data
-from .lead_model import Lead, lead_schema
-from .simulation_model import Simulation
+
+from .lead_model import Lead, lead_schema, leads_schema
+
+from .simulation_model import (
+    Simulation, simulation_schema, simulations_schema)
+
 from .seller_model import Seller, seller_schema, sellers_schema
+
 from .message_model import Message, message_schema, messages_schema
 
