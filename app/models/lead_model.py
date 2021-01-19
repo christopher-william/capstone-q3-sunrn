@@ -31,7 +31,6 @@ class LeadSchema(ma.SQLAlchemySchema):
         hsp_id = ma.auto_field()
         energy_id = ma.auto_field()
         simulations = ma.auto_field()
-        messages = ma.auto_field()
 
 
 lead_schema = LeadSchema()
