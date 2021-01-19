@@ -4,7 +4,7 @@ from app.models.lead_model import Lead, lead_schema
 from flask import current_app
 from sqlalchemy.exc import IntegrityError
 
-from .http import build_api_response
+from .http_service import build_api_response
 
 
 def create_lead(data):
