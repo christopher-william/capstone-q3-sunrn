@@ -1,26 +1,26 @@
 from app.models import Hsp, Energy_data, Panel_price, energy_data_model
+from .installed_power_service import installed_power
 
 
 def panel_set_costs(pow_pico, pow_panel, price_panel):
-    pow_pico = pow_pico * 1000
     panel_set_price = ((pow_pico//pow_panel) + 1) * price_panel
 
     return panel_set_price
 
 
-def inversor_selector(inversor_list):
+def inversor_selector(inversor_list, pow_pico):
     def sort_inversors(e):
         return e.price
 
     available_inversors = list(
-        filter(lambda inversor: inversor.power/0.8 >= ppico, inversor_list))
+        filter(lambda inversor: inversor.power/0.8 >= pow_pico, inversor_list))
     available_inversors.sort(key=sort_inversors)
     return available_inversors[0]
 
 
 def panel_selector(panel_list, pow_pico):
 
-    def sort_panel(e):
+    def sort_panel(e): #e => Panel model
         return panel_set_costs(pow_pico, e.power, e.price)
 
     panel_list.sort(key=sort_panel)
@@ -48,8 +48,8 @@ def roi_calc(energy_data, inversor_list, panel_list, hsp):
     # manutenção do sistema custa 0.5% ao ano, em 25 anos o custo fica em 12.5%
     maintenance_cost = system_cost * 0.125
 
-    total_system_cost = system_cost + worker_cost + \
-        project_cost + eletric_materials_cost + maintenance_cost
+    total_system_cost = (system_cost + worker_cost + 
+        project_cost + eletric_materials_cost + maintenance_cost)
 
     roi_years = (total_system_cost/energy_data.month_value) / 12
 
