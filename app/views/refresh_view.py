@@ -1,5 +1,5 @@
 from flask_jwt_extended import (
-    fresh_jwt_required, 
+    jwt_refresh_token_required, 
     get_jwt_identity,
     create_access_token
     )
@@ -8,7 +8,7 @@ from flask_restful import Resource
 from datetime import timedelta
 
 class Refresh(Resource):
-    @fresh_jwt_required
+    @jwt_refresh_token_required
     def get(self):
         user_id = get_jwt_identity()
         acess_token = create_access_token(
