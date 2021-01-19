@@ -10,9 +10,6 @@ class Seller(db.Model):
     password = db.Column(db.String, nullable=False)
     lead_id = db.relationship('Lead', secondary='message')
 
-    def __repr__(self):
-        return f'<Seller {self.name}>'
-
 
 class SellerSchema(ma.SQLAlchemySchema):
     class Meta:

@@ -17,7 +17,7 @@ class MessageSchema(ma.SQLAlchemySchema):
     class Meta:
 
         model = Message
-        
+            
     id = ma.auto_field()
     classification = ma.auto_field()
     message = ma.auto_field()

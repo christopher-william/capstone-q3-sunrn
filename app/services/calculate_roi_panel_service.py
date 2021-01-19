@@ -1,4 +1,4 @@
-from app.models import Hsp, Energy_data, Panel_price, energy_data_model
+from app.models import Hsp, EnergyData, PanelPrice, energy_data_model
 from .installed_power_service import installed_power
 import json
 

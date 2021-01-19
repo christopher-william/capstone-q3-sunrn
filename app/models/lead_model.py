@@ -1,5 +1,5 @@
 from . import db, ma
-from .simulation_model import SimulationSchema
+
 
 class Lead(db.Model):
     __tablename__ = "lead"
@@ -29,7 +29,6 @@ class LeadSchema(ma.SQLAlchemySchema):
     energy_id = ma.auto_field()
     messages = ma.auto_field()
     simulation = ma.auto_field()
-        # simulation = fields.Nested(SimulationSchema, exclude=("lead_id",))
 
 
 lead_schema = LeadSchema()

@@ -4,12 +4,13 @@ from flask import current_app
 from flask_restful import Resource
 from app.models.lead_model import Lead
 from app.models.hsp_model import Hsp
-from app.models.energy_data_model import Energy_data
+from app.models.energy_data_model import EnergyData
 from app.models.simulation_model import Simulation
-from app.models.panel_price_model import Panel_price
-from app.models.inverter_price_model import Inverter_price
+from app.models.panel_price_model import PanelPrice
+from app.models.inverter_price_model import InverterPrice
 
 from app.services.calculate_roi_panel_service import roi_calc
+from app.services.http import build_api_response
 
 
 class LeadView(Resource):
@@ -18,11 +19,11 @@ class LeadView(Resource):
 
         data = request.get_json()
         hsp = Hsp.query.filter_by(id=data["hsp_id"]).first()
-        panel_list = Panel_price.query.order_by(Panel_price.power).all()
-        inverter_list = Inverter_price.query.order_by(
-            Inverter_price.power).all()
+        panel_list = PanelPrice.query.order_by(PanelPrice.power).all()
+        inverter_list = InverterPrice.query.order_by(
+            InverterPrice.power).all()
         
-        energy_data = Energy_data(
+        energy_data = EnergyData(
             month_energy=data["month_energy"],
             month_value=data["month_value"]
         )
@@ -54,11 +55,11 @@ class LeadView(Resource):
             total_system_cost=simulation_data['total_system_cost'],
             roi_years=simulation_data['roi_years']
         )
-        
+
         session = current_app.db.session
         session.add(energy_data)
         session.add(lead)
         session.add(simulation)
         session.commit()
-
+        
         return simulation_data

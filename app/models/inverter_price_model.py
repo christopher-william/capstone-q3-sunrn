@@ -1,5 +1,4 @@
 from . import db, ma
-from .simulation_model import SimulationSchema
 
 
 class InverterPrice(db.Model):
@@ -18,7 +17,7 @@ class InverterPrice(db.Model):
 class InverterPriceSchema(ma.SQLAlchemySchema):
     
     class Meta:
-        model = Inverter_price
+        model = InverterPrice
 
     id = ma.auto_field()
     model = ma.auto_field()
@@ -26,7 +25,6 @@ class InverterPriceSchema(ma.SQLAlchemySchema):
     power = ma.auto_field()
     price = ma.auto_field()
     simulation = ma.auto_field()
-        
 
 
 inversor_price_schema = InverterPriceSchema()

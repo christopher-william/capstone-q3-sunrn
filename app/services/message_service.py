@@ -1,7 +1,8 @@
 from http import HTTPStatus
 
-from app.models import (Lead, Message, lead_schema, message_schema,
-                        messages_schema)
+from app.models import (
+    Lead, Message, lead_schema, message_schema,
+    messages_schema)
 from flask import current_app
 
 from .http import build_api_response

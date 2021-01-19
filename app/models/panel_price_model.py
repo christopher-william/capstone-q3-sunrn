@@ -1,6 +1,4 @@
 from . import db, ma
-from .simulation_model import SimulationSchema
-
 
 class PanelPrice(db.Model):
     __tablename__ = "panel_price"
@@ -13,15 +11,12 @@ class PanelPrice(db.Model):
 
     simulation = db.relationship('Simulation')
 
-    def __repr__(self):
-        return f"<Table name {self.Panel_price.__name__}>"
-
 
 class PanelPriceSchema(ma.SQLAlchemySchema):
     
     class Meta:
 
-        model = Panel_price
+        model = PanelPrice
 
     id = ma.auto_field()
     model = ma.auto_field()
@@ -29,7 +24,6 @@ class PanelPriceSchema(ma.SQLAlchemySchema):
     power = ma.auto_field()
     price = ma.auto_field()
     simulation = ma.auto_field()
-        # simulation = fields.Nested(SimulationSchema, exclude=("panel_id",))
         
 
 
