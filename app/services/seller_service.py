@@ -12,6 +12,7 @@ from .http_service import build_api_response
 
 def login_seller(data):
     try:
+
         encoded_password = encode_password(data)
         seller = Seller.query.filter_by(
             email=data['email'], password=encoded_password).first()
@@ -30,40 +31,49 @@ def login_seller(data):
                 'auth_token': acess_token,
 
                 'user': {
-                    'name': data['name'],
-                    'email': data['email']
+                    'id': seller.id,
+                    'name': seller.name,
+                    'email': seller.email
                 }
 
             }
         )
 
     except:
+
         return build_api_response(HTTPStatus.BAD_REQUEST)
 
 
 def create_seller(data):
 
     try:
+
         encoded_password = encode_password(data)
         seller = Seller(
             name=data['name'],
             email=data['email'],
             password=encoded_password
         )
+
         acess_token = create_access_token(
             identity=seller.id, expires_delta=timedelta(days=1))
+
         session = current_app.db.session
         session.add(seller)
         session.commit()
+
         return build_api_response(
             HTTPStatus.CREATED, {
                 'auth_token': acess_token,
 
                 'user': {
-                    'name': data['name'],
-                    'email': data['email']
+                    'id': seller.id,
+                    'name': seller.name,
+                    'email': seller.email
                 }
             }
         )
+
     except:
+
         return build_api_response(HTTPStatus.BAD_REQUEST)
