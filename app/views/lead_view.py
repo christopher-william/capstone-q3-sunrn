@@ -1,4 +1,3 @@
-
 from app.services.lead_service import create_lead
 from flask import request
 from flask import current_app
@@ -20,11 +19,14 @@ class Lead(Resource):
         data = request.get_json()
 
         hsp = Hsp.query.filter_by(id=data["hsp_id"]).first()
+        
         panel_list = Panel_price.query.order_by(Panel_price.power).all()
+        
         inverter_list = Inverter_price.query.order_by(
             Inverter_price.power).all()
 
         energy_data = Energy_data(data["month_energy"], data["month_value"])
+        
         simulation_data = roi_calc(energy_data, inverter_list, panel_list, hsp)
 
         lead = Lead(
@@ -37,18 +39,20 @@ class Lead(Resource):
 
         simulation = Simulation(
             lead_id=lead.id,
-            panel_id=simulation['panel'][0].id,
-            inverter_id=simulation['inversor'].id,
-            system_cost=simulation['system_cost'],
-            worker_cost=simulation['energy_cost'],
-            project_cost=simulation['worker_cost'],
-            eletric_materials_cost=simulation['eletric_materials_cost'],
-            maintanance_cost=simulation['maintanance_cost'],
-            total_system_cost=simulation['total_system_cost'],
-            roi_years=simulation['roi_years']
+            panel_id=simulation_data['panel']['panel'].id,
+            panel_quantity=simulation_data['panel']['quantity']
+            inverter_id=simulation_data['inversor'].id,
+            system_cost=simulation_data['system_cost'],
+            worker_cost=simulation_data['energy_cost'],
+            project_cost=simulation_data['worker_cost'],
+            eletric_materials_cost=simulation_data['eletric_materials_cost'],
+            maintanance_cost=simulation_data['maintanance_cost'],
+            total_system_cost=simulation_data['total_system_cost'],
+            roi_years=simulation_data['roi_years']
         )
 
         session = current_app.db.session
+        session.add(energy_data)
         session.add(lead)
         session.add(simulation)
         session.commit()

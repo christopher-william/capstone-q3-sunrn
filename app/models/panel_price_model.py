@@ -10,5 +10,7 @@ class Panel_price(db.Model):
     power = db.Column(db.Integer, nullable=False)
     price = db.Column(db.Numeric, nullable=False)
 
+    simulation = db.relationship('Simulation')
+
     def __repr__(self):
         return f"<Table name {self.Panel_price.__name__}>"

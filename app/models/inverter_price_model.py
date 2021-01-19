@@ -9,6 +9,8 @@ class Inverter_price(db.Model):
     brand = db.Column(db.String(100), nullable=False)
     power = db.Column(db.Integer, nullable=False)
     price = db.Column(db.Numeric, nullable=False)
+    
+    simulation = db.relationship('Simulation')
 
     def __repr__(self):
         return f'<User {self.model}>'
