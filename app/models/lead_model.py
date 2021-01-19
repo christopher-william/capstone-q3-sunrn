@@ -14,14 +14,13 @@ class Lead(db.Model):
     seller_id = db.relationship('Seller', secondary='message')
 
 
-
 class LeadSchema(ma.SQLAlchemySchema):
     class Meta:
 
         fields = (
             'id', 'name', 'email',
             'phone', 'hsp_id', 'energy_id',
-            'simulations', 'messages'
+            'simulations', 'seller_id'
         )
 
         id = ma.auto_field()
@@ -31,7 +30,7 @@ class LeadSchema(ma.SQLAlchemySchema):
         hsp_id = ma.auto_field()
         energy_id = ma.auto_field()
         simulations = ma.auto_field()
-        messages = ma.auto_field()
+        seller_id = ma.auto_field()
 
 
 lead_schema = LeadSchema()

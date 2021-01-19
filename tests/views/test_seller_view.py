@@ -41,7 +41,8 @@ def test_create_seller(client):
 
     last_seller = {"id": id, "name": name, "email": email}
 
-    assert data_result['user'] == last_seller
+    assert sorted(data_result['user'].keys()) == sorted(last_seller.keys())
+    assert sorted(data_result['user'].values()) == sorted(last_seller.values())
 
     assert type(data_result['auth_token']) is str
     assert len(data_result['auth_token']) > 15
