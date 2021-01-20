@@ -15,8 +15,10 @@ class Lead(db.Model):
 
 
 class LeadSchema(ma.SQLAlchemySchema):
+    
     class Meta:
 
+<<<<<<< HEAD
         fields = (
             'id', 'name', 'email',
             'phone', 'hsp_id', 'energy_id',
@@ -31,6 +33,19 @@ class LeadSchema(ma.SQLAlchemySchema):
         energy_id = ma.auto_field()
         simulations = ma.auto_field()
         seller_id = ma.auto_field()
+=======
+        model = Lead
+
+    id = ma.auto_field()
+    name = ma.auto_field()
+    email = ma.auto_field()
+    phone = ma.auto_field()
+    hsp_id = ma.auto_field()
+    energy_id = ma.auto_field()
+    messages = ma.auto_field()
+    simulation = ma.auto_field()
+>>>>>>> 6ba8dcbc7f49e7b66de3f17f40c905748338a38a
 
 
 lead_schema = LeadSchema()
+leads_schema = LeadSchema(many=True)

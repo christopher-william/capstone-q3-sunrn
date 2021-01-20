@@ -1,6 +1,12 @@
 from http import HTTPStatus
 
+<<<<<<< HEAD
 from app.models import Lead, Message, lead_schema, message_schema
+=======
+from app.models import (
+    Lead, Message, lead_schema, message_schema,
+    messages_schema)
+>>>>>>> 6ba8dcbc7f49e7b66de3f17f40c905748338a38a
 from flask import current_app
 
 from .http_service import build_api_response

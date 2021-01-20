@@ -10,19 +10,18 @@ class Hsp(db.Model):
     md_anual = db.Column(db.Integer, nullable=False)
     lon = db.Column(db.Numeric, nullable=False)
     lat = db.Column(db.Numeric, nullable=False)
-    leads = db.relationship('Lead')
+    lead = db.relationship("Lead")
 
 
 class HspSchema(ma.SQLAlchemySchema):
     class Meta:
         
-        fields = (
-            "id", "city", "uf"
-        )
+        model = Hsp
         
-        id = ma.auto_field()
-        city = ma.auto_field()
-        uf = ma.auto_field()
+    id = ma.auto_field()
+    city = ma.auto_field()
+    uf = ma.auto_field()
+    lead = ma.auto_field()
 
         
 hsp_schema = HspSchema()
