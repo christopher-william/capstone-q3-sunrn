@@ -2,7 +2,6 @@ from flask import Flask
 from flask_marshmallow import Marshmallow
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 mg = Migrate()
@@ -16,6 +15,24 @@ def configure(app: Flask):
     app.db = db
 
 
+from .hsp_lead_model import HspLead
+
+from .message_model import (
+    Message, MessageSchema,
+    message_schema, messages_schema)
+
+from .simulation_model import (
+    Simulation, SimulationSchema,
+    simulation_schema, simulations_schema)
+
+from .seller_model import (
+    Seller, SellerSchema,
+    seller_schema, sellers_schema)
+
+from .lead_model import (
+    Lead, LeadSchema,
+    lead_schema, leads_schema)
+
 from .hsp_model import (
     Hsp, HspSchema,
     hsp_schema, hsps_schema)
@@ -28,29 +45,4 @@ from .panel_price_model import (
     PanelPrice, PanelPriceSchema,
     panel_price_schema, panels_prices_schema)
 
-
-from .simulation_model import (
-    Simulation, SimulationSchema,
-    simulation_schema, simulations_schema)
-
-from .message_model import (
-    Message, MessageSchema,
-    message_schema, messages_schema)
-
-from .lead_model import (
-    Lead, LeadSchema,
-    lead_schema, leads_schema)
-
-from .seller_model import (
-    Seller, SellerSchema,
-    seller_schema, sellers_schema)
-
-
-
-
 from .energy_data_model import EnergyData, energy_data_schema
-
-
-
-
-

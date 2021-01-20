@@ -8,11 +8,14 @@ class Lead(db.Model):
     name = db.Column(db.String, nullable=False)
     email = db.Column(db.String(100), nullable=False, unique=True)
     phone = db.Column(db.String(20), nullable=False, unique=True)
-    hsp_id = db.Column(db.Integer, db.ForeignKey('hsp.id'))
+    
     energy_id = db.Column(db.Integer, db.ForeignKey('energy_data.id'))
+    
     simulation = db.relationship('Simulation')
-    seller_id = db.relationship('Seller', secondary='message')
+    hsp = db.relationship('Hsp', secondary='hsp_lead')
+    seller = db.relationship('Seller', secondary='message')
 
+    
 
 class LeadSchema(ma.SQLAlchemySchema):
 
