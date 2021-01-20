@@ -28,21 +28,29 @@ from .panel_price_model import (
     PanelPrice, PanelPriceSchema,
     panel_price_schema, panels_prices_schema)
 
-from .energy_data_model import EnergyData
-
-from .lead_model import (
-    Lead, LeadSchema,
-    lead_schema, leads_schema)
 
 from .simulation_model import (
     Simulation, SimulationSchema,
     simulation_schema, simulations_schema)
 
+from .message_model import (
+    Message, MessageSchema,
+    message_schema, messages_schema)
+
+from .lead_model import (
+    Lead, LeadSchema,
+    lead_schema, leads_schema)
+
 from .seller_model import (
     Seller, SellerSchema,
     seller_schema, sellers_schema)
 
-from .message_model import (
-    Message, MessageSchema,
-    message_schema, messages_schema)
+
+
+
+from .energy_data_model import EnergyData
+
+
+
+
 

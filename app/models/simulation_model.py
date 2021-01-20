@@ -15,14 +15,14 @@ class Simulation(db.Model):
     roi_years = db.Column(db.Numeric, nullable=False)
     panel_quantity = db.Column(db.Numeric, nullable=False)
 
-    lead_id = db.Column(db.Integer, db.ForeignKey('lead.id'))    
+    lead_id = db.Column(db.Integer, db.ForeignKey('lead.id'))
     panel_id = db.Column(db.Integer, db.ForeignKey('panel_price.id'))
     inversor_id = db.Column(
         db.Integer, db.ForeignKey('inverter_price.id'))
-    
+
 
 class SimulationSchema(ma.SQLAlchemySchema):
-    
+
     class Meta:
 
         model = Simulation
@@ -36,9 +36,10 @@ class SimulationSchema(ma.SQLAlchemySchema):
     total_system_cost = ma.auto_field()
     roi_years = ma.auto_field()
     panel_quantity = ma.auto_field()
-    # lead_id = ma.auto_field()
+    lead_id = ma.auto_field()
     panel_id = ma.auto_field()
     inversor_id = ma.auto_field()
+
 
 simulation_schema = SimulationSchema()
 simulations_schema = SimulationSchema(many=True)
