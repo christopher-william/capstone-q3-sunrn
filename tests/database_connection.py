@@ -32,13 +32,3 @@ def execute_sql_comand_in_database(query):
     conn.close()
 
     return records
-
-
-records = execute_sql_comand_in_database(
-    """SELECT id FROM message ORDER BY ID DESC LIMIT 1""")[0][0]
-print(records)
-
-
-records = execute_sql_comand_in_database(
-    """SELECT * FROM lead """)
-print(records)

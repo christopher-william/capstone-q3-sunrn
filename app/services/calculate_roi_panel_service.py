@@ -63,19 +63,6 @@ def roi_calc(energy_data, inversor_list, panel_list, hsp):
     inversor['price'] = float(inversor['price'])
     panel_dict['price'] = float(panel_dict['price'])
 
-    print({
-        "inversor": inversor,
-        "panel": panel_dict,
-        "energy_cost": energy_cost,
-        "system_cost": system_cost,
-        "worker_cost": worker_cost,
-        "project_cost": project_cost,
-        "eletric_materials_cost": eletric_materials_cost,
-        "maintanance_cost": maintenance_cost,
-        "total_system_cost": total_system_cost,
-        "roi_years": roi_years
-    })
-
     return {
         "inversor": inversor,
         "panel": panel_dict,

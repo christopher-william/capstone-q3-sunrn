@@ -48,7 +48,7 @@ from .seller_model import (
 
 
 
-from .energy_data_model import EnergyData
+from .energy_data_model import EnergyData, energy_data_schema
 
 
 

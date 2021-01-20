@@ -9,7 +9,7 @@ from app.services.http_service import build_api_response
 from app.services.lead_service import create_lead
 from flask import current_app, request
 from flask_restful import Resource
-
+from app.models import energy_data_schema
 
 class LeadView(Resource):
 
@@ -25,12 +25,15 @@ class LeadView(Resource):
             month_energy=data["month_energy"],
             month_value=data["month_value"]
         )
+
         
 
         simulation_data = roi_calc(
             energy_data, inverter_list,
             panel_list, hsp
         )
+
+        energy_dict = energy_data_schema.dump(energy_data)
 
         lead = Lead(
             name=data['name'],
@@ -39,6 +42,7 @@ class LeadView(Resource):
             hsp_id=hsp.id,
             energy_id=energy_data.id
         )
+        print("------------------------", energy_dict, lead.__dict__)
 
         simulation = Simulation(
             lead_id=lead.id,

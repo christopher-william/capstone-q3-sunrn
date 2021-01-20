@@ -13,12 +13,12 @@ class EnergyData(db.Model):
 class EnergyDataSchema(ma.SQLAlchemySchema):
     class Meta:
 
-        fields = ('id', 'month_energy', 'month_value', 'leads')
+        model = EnergyData
 
-        id = ma.auto_field()
-        month_energy = ma.auto_field()
-        month_value = ma.auto_field()
-        leads = ma.auto_field()
+    id = ma.auto_field()
+    month_energy = ma.auto_field()
+    month_value = ma.auto_field()
+    leads = ma.auto_field()
 
 
 energy_data_schema = EnergyDataSchema()

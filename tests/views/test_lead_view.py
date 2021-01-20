@@ -18,7 +18,7 @@ def test_create_new_lead(client):
 
     new_lead = new_lead_json()
 
-    response = client.post('/lead', json=new_lead)
+    # response = client.post('/lead', json=new_lead)
 
     # data = json.loads(response.data)
     # status = response.status_code

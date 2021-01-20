@@ -6,7 +6,8 @@ def new_message_json():
     """retorna o json com as informações da nova menssagem"""
 
     return {
-        "lead_id": "1",
+        "lead_id": "2",
+        "seller_id": "1",
         "classification": "5",
         "message": "O lead quer uma proposta formalizada por email."
     }
@@ -42,7 +43,7 @@ def test_dict_create_message_with_status_201(client):
 
 def test_dict_of_get_lead_and_message_with_status_200(client):
     """pega o lead e as messagens e verifica o status"""
-    response = client.get(f'/message/{1}')
+    response = client.get(f'/message/{2}')
 
     status_result = response.status_code
     data_result = json.loads(response.data)
