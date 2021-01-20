@@ -25,6 +25,7 @@ class LeadView(Resource):
             month_energy=data["month_energy"],
             month_value=data["month_value"]
         )
+        
 
         simulation_data = roi_calc(
             energy_data, inverter_list,
@@ -41,9 +42,9 @@ class LeadView(Resource):
 
         simulation = Simulation(
             lead_id=lead.id,
-            panel_id=simulation_data['panel']['panel'].id,
+            panel_id=simulation_data['panel']['id'],
             panel_quantity=simulation_data['panel']['quantity'],
-            inversor_id=simulation_data['inversor'].id,
+            inversor_id=simulation_data['inversor']['id'],
             system_cost=simulation_data['system_cost'],
             energy_cost=simulation_data['energy_cost'],
             worker_cost=simulation_data['worker_cost'],

@@ -1,4 +1,4 @@
-from app.models import Hsp, EnergyData, PanelPrice, energy_data_model
+from app.models import Hsp, EnergyData, PanelPrice, energy_data_model,  panel_price_schema, inversor_price_schema
 from .installed_power_service import installed_power
 import json
 
@@ -54,9 +54,31 @@ def roi_calc(energy_data, inversor_list, panel_list, hsp):
         project_cost + eletric_materials_cost + maintenance_cost)
 
     roi_years = (total_system_cost/energy_data.month_value) / 12
+
+    inversor = inversor_price_schema.dump(inversor)
+
+    panel_dict = panel_price_schema.dump(panel['panel'])
+    panel_dict.update({'quantity': panel['quantity']})
+
+    inversor['price'] = float(inversor['price'])
+    panel_dict['price'] = float(panel_dict['price'])
+
+    print({
+        "inversor": inversor,
+        "panel": panel_dict,
+        "energy_cost": energy_cost,
+        "system_cost": system_cost,
+        "worker_cost": worker_cost,
+        "project_cost": project_cost,
+        "eletric_materials_cost": eletric_materials_cost,
+        "maintanance_cost": maintenance_cost,
+        "total_system_cost": total_system_cost,
+        "roi_years": roi_years
+    })
+
     return {
         "inversor": inversor,
-        "panel": panel,
+        "panel": panel_dict,
         "energy_cost": energy_cost,
         "system_cost": system_cost,
         "worker_cost": worker_cost,

@@ -1,4 +1,4 @@
-"""morelations in table update
+"""migrations in table update
 
 Revision ID: e3354e0b85da
 Revises: 1c2a2efc2418

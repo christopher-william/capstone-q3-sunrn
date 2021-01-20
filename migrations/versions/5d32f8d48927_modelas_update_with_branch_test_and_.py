@@ -1,8 +1,8 @@
-"""alembic heads and relationship change
+"""modelas update with branch test and calculate_roi
 
-Revision ID: 1c2a2efc2418
-Revises: 
-Create Date: 2021-01-15 10:19:34.656020
+Revision ID: 5d32f8d48927
+Revises: 525f490e0c2f
+Create Date: 2021-01-20 09:04:45.172692
 
 """
 from alembic import op
@@ -10,8 +10,8 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '1c2a2efc2418'
-down_revision = None
+revision = '5d32f8d48927'
+down_revision = '525f490e0c2f'
 branch_labels = None
 depends_on = None
 
@@ -21,6 +21,7 @@ def upgrade():
     op.create_table('energy_data',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('month_energy', sa.Numeric(), nullable=False),
+    sa.Column('month_value', sa.Numeric(), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('hsp',
@@ -74,13 +75,28 @@ def upgrade():
     sa.Column('classification', sa.Integer(), nullable=False),
     sa.Column('message', sa.String(), nullable=False),
     sa.Column('lead_id', sa.Integer(), nullable=True),
-    sa.ForeignKeyConstraint(['lead_id'], ['lead.id'], ),
+    sa.Column('seller_id', sa.Integer(), nullable=True),
+    sa.ForeignKeyConstraint(['lead_id'], ['lead.id'], onupdate='CASCADE', ondelete='CASCADE'),
+    sa.ForeignKeyConstraint(['seller_id'], ['seller.id'], onupdate='CASCADE', ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('simulation',
     sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('system_cost', sa.Numeric(), nullable=False),
+    sa.Column('energy_cost', sa.Numeric(), nullable=False),
+    sa.Column('worker_cost', sa.Numeric(), nullable=False),
+    sa.Column('project_cost', sa.Numeric(), nullable=False),
+    sa.Column('eletric_materials_cost', sa.Numeric(), nullable=False),
+    sa.Column('maintanance_cost', sa.Numeric(), nullable=False),
+    sa.Column('total_system_cost', sa.Numeric(), nullable=False),
+    sa.Column('roi_years', sa.Numeric(), nullable=False),
+    sa.Column('panel_quantity', sa.Numeric(), nullable=False),
     sa.Column('lead_id', sa.Integer(), nullable=True),
+    sa.Column('panel_id', sa.Integer(), nullable=True),
+    sa.Column('inversor_id', sa.Integer(), nullable=True),
+    sa.ForeignKeyConstraint(['inversor_id'], ['inverter_price.id'], ),
     sa.ForeignKeyConstraint(['lead_id'], ['lead.id'], ),
+    sa.ForeignKeyConstraint(['panel_id'], ['panel_price.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     # ### end Alembic commands ###

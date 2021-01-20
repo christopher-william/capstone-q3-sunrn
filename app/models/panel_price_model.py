@@ -16,7 +16,7 @@ class PanelPriceSchema(ma.SQLAlchemySchema):
     class Meta:
 
         model = PanelPrice
-
+       
     id = ma.auto_field()
     model = ma.auto_field()
     brand = ma.auto_field()

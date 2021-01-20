@@ -1,4 +1,4 @@
-from . import db
+from . import db, ma
 
 
 class EnergyData(db.Model):
@@ -8,3 +8,17 @@ class EnergyData(db.Model):
     month_energy = db.Column(db.Numeric, nullable=False)
     month_value = db.Column(db.Numeric, nullable=False)
     leads = db.relationship('Lead')
+
+
+class EnergyDataSchema(ma.SQLAlchemySchema):
+    class Meta:
+
+        fields = ('id', 'month_energy', 'month_value', 'leads')
+
+        id = ma.auto_field()
+        month_energy = ma.auto_field()
+        month_value = ma.auto_field()
+        leads = ma.auto_field()
+
+
+energy_data_schema = EnergyDataSchema()
