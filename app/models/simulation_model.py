@@ -29,15 +29,15 @@ class SimulationSchema(ma.SQLAlchemySchema):
 
         model = Simulation
 
-    system_cost = ma.auto_field()
-    energy_cost = ma.auto_field()
-    worker_cost = ma.auto_field()
-    project_cost = ma.auto_field()
-    eletric_materials_cost = ma.auto_field()
-    maintanance_cost = ma.auto_field()
-    total_system_cost = ma.auto_field()
-    roi_years = ma.auto_field()
-    panel_quantity = ma.auto_field()
+    system_cost = fields.Float()
+    energy_cost = fields.Float()
+    worker_cost = fields.Float()
+    project_cost = fields.Float()
+    eletric_materials_cost = fields.Float()
+    maintanance_cost = fields.Float()
+    total_system_cost = fields.Float()
+    roi_years = fields.Float()
+    panel_quantity = fields.Float()
 
     lead_id = ma.auto_field()
     panel_id = ma.auto_field()

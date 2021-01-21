@@ -23,7 +23,7 @@ class LeadSchema(ma.SQLAlchemySchema):
     class Meta:
 
         # model = Lead
-        fields = ('id', 'name', 'email', 'phone', 'energy_id')
+        fields = ('id', 'name', 'email', 'phone', 'energy_id', 'simulation')
 
     # id = ma.auto_field()
     # name = ma.auto_field()
