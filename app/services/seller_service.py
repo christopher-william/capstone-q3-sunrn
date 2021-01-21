@@ -1,8 +1,7 @@
 from datetime import timedelta
 from http import HTTPStatus
 
-from app.models import db
-from app.models.seller_model import Seller
+from app.models import Seller
 from app.services.encode_service import encode_password
 from flask import current_app
 from flask_jwt_extended import create_access_token, create_refresh_token
@@ -39,8 +38,8 @@ def login_seller(data):
             }
         )
 
-    except:
-
+    except Exception as error:
+        print(error)
         return build_api_response(HTTPStatus.BAD_REQUEST)
 
 
@@ -74,6 +73,6 @@ def create_seller(data):
             }
         )
 
-    except:
-
+    except Exception as error:
+        print(error)
         return build_api_response(HTTPStatus.BAD_REQUEST)

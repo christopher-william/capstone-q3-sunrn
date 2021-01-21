@@ -1,4 +1,4 @@
-from . import db, ma
+from . import db
 
 
 class Message(db.Model):
@@ -12,19 +12,3 @@ class Message(db.Model):
         'lead.id', onupdate='CASCADE', ondelete='CASCADE'))
     seller_id = db.Column(db.Integer, db.ForeignKey(
         'seller.id', onupdate='CASCADE', ondelete='CASCADE'))
-
-
-class MessageSchema(ma.SQLAlchemySchema):
-    class Meta:
-
-        model = Message
-
-    id = ma.auto_field()
-    classification = ma.auto_field()
-    message = ma.auto_field()
-    lead_id = ma.auto_field()
-    seller_id = ma.auto_field()
-
-
-message_schema = MessageSchema()
-messages_schema = MessageSchema(many=True)

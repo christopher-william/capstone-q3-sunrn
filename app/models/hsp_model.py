@@ -1,4 +1,4 @@
-from . import db, ma
+from . import db
 
 
 class Hsp(db.Model):
@@ -12,17 +12,3 @@ class Hsp(db.Model):
     lat = db.Column(db.Numeric, nullable=False)
 
     lead = db.relationship('Lead', secondary='hsp_lead')
-
-
-class HspSchema(ma.SQLAlchemySchema):
-    class Meta:
-
-        model = Hsp
-
-    id = ma.auto_field()
-    city = ma.auto_field()
-    uf = ma.auto_field()
-
-
-hsp_schema = HspSchema()
-hsps_schema = HspSchema(many=True)

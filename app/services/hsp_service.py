@@ -1,7 +1,7 @@
 from http import HTTPStatus
 
-from app.models.hsp_model import Hsp, hsps_schema
-from sqlalchemy.exc import IntegrityError
+from ..models import Hsp
+from ..schema import hsps_schema
 
 from .http_service import build_api_response, build_response_message
 from .uf_dict_service import ufs_dict
@@ -13,6 +13,7 @@ def get_uf_or_all(**kwargs):
         return "Not found", HTTPStatus.NOT_FOUND
 
     try:
+
         if request_uf:
             uf = ufs_dict[request_uf]
             ufs = Hsp.query.filter_by(uf=uf).all()
@@ -27,7 +28,8 @@ def get_uf_or_all(**kwargs):
 
             return build_api_response(HTTPStatus.OK, {"uf": uf_list})
 
-    except:
+    except Exception as error:
+        print(error)
         return build_api_response(HTTPStatus.INTERNAL_SERVER_ERROR, {
             "info": "Internal server error"
         })
