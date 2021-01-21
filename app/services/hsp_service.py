@@ -6,11 +6,12 @@ from sqlalchemy.exc import IntegrityError
 from .http_service import build_api_response, build_response_message
 from .uf_dict_service import ufs_dict
 
+
 def get_uf_or_all(**kwargs):
     request_uf = kwargs.get("uf")
     if request_uf and request_uf.isupper():
         return "Not found", HTTPStatus.NOT_FOUND
-    
+
     try:
         if request_uf:
             uf = ufs_dict[request_uf]
@@ -24,7 +25,9 @@ def get_uf_or_all(**kwargs):
         else:
             uf_list = list(ufs_dict.keys())
 
-            return build_api_response(HTTPStatus.OK, {"uf": uf_list })
+            return build_api_response(HTTPStatus.OK, {"uf": uf_list})
 
     except:
-        return "Internal server error", HTTPStatus.INTERNAL_SERVER_ERROR
+        return build_api_response(HTTPStatus.INTERNAL_SERVER_ERROR, {
+            "info": "Internal server error"
+        })
