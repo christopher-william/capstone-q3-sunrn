@@ -6,6 +6,7 @@ from flask_jwt_extended import JWTManager
 
 from .models import configure as db_configure
 from .views import configure as views_configure
+from .schema import configure as schema_configure
 
 
 def create_app(mode='development'):
@@ -20,6 +21,7 @@ def create_app(mode='development'):
     app.config['SQLALCHEMY_DATABASE_URI'] = env.str('SQLALCHEMY_DATABASE_URI')
     app.config['JWT_SECRET_KEY'] = token_hex(16)
     db_configure(app)
+    schema_configure(app)
     views_configure(app)
     JWTManager(app)
 

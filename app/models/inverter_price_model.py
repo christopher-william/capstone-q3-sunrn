@@ -1,4 +1,4 @@
-from . import db, ma
+from . import db
 
 
 class InverterPrice(db.Model):
@@ -9,20 +9,3 @@ class InverterPrice(db.Model):
     brand = db.Column(db.String(100), nullable=False)
     power = db.Column(db.Integer, nullable=False)
     price = db.Column(db.Numeric, nullable=False)
-
-
-class InverterPriceSchema(ma.SQLAlchemySchema):
-
-    class Meta:
-
-        model = InverterPrice
-
-    id = ma.auto_field()
-    model = ma.auto_field()
-    brand = ma.auto_field()
-    power = ma.auto_field()
-    price = ma.auto_field()
-
-
-inversor_price_schema = InverterPriceSchema()
-inversors_prices_schema = InverterPriceSchema(many=True)

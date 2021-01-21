@@ -1,7 +1,7 @@
 from http import HTTPStatus
 
-from app.models.hsp_model import Hsp, hsps_schema
-from sqlalchemy.exc import IntegrityError
+from ..models import Hsp
+from ..schema import hsps_schema
 
 from .http_service import build_api_response
 
@@ -16,7 +16,9 @@ def get_uf_or_all(**kwargs):
         return build_api_response(HTTPStatus.OK, {
             "data": hsps_schema.dump(ufs)})
 
-    except:
+    except Exception as error:
+        print(error)
+        
         uf_query = Hsp.query.order_by(Hsp.uf).all()
         uf_schema = hsps_schema.dump(uf_query)
         uf_list = [uf.get("uf") for uf in uf_schema]

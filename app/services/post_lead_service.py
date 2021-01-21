@@ -1,13 +1,11 @@
 from http import HTTPStatus
 
 from app.models import (EnergyData, Hsp, HspLead, InverterPrice, Lead, Message,
-                        PanelPrice, Simulation, energy_data_schema,
-                        lead_schema, messages_schema, simulation_schema,
-                        simulations_schema)
+                        PanelPrice, Simulation)
+from ..schema import lead_schema, leads_schema,messages_schema, simulations_schema
 from app.services.calculate_roi_panel_service import roi_calc
 from app.services.http_service import build_api_response
-from flask import current_app, request
-from sqlalchemy.exc import IntegrityError
+from flask import current_app
 
 from .http_service import build_api_response
 
@@ -93,29 +91,44 @@ def post_lead(data):
 
         return build_api_response(HTTPStatus.CREATED, simulation_data)
 
-    except IntegrityError:
+    except Exception as error:
+        print(error)
         return build_api_response(HTTPStatus.BAD_REQUEST)
 
 
 def get_lead_all_message(lead_id):
 
+    lead = Lead.query.get(lead_id)
+    messages = Message.query.filter_by(lead_id=lead_id)
+
+    lead_schema_rs = lead_schema.dump(lead)
+    messages_schema_rs = messages_schema.dump(messages)
+
+    # lead_schema_rs['simulations'] = simulations_schema.dump(
+    #     lead_schema_rs['simulations'])
+
+    lead_and_all_messages = {
+        "lead": lead_schema_rs,
+        "messages": messages_schema_rs
+    }
+
     try:
 
-        lead = Lead.query.get(lead_id)
-        messages = Message.query.filter_by(lead_id=lead_id)
-
-        lead_schema_rs = lead_schema.dump(lead)
-        messages_schema_rs = messages_schema.dump(messages)
-
-        lead_schema_rs['simulations'] = simulations_schema.dump(
-            lead_schema_rs['simulations'])
-
-        lead_and_all_messages = {
-            "lead": lead_schema_rs,
-            "messages": messages_schema_rs
-        }
+        
 
         return build_api_response(HTTPStatus.OK, lead_and_all_messages)
 
-    except:
+    except Exception as error:
+        print(error.with_traceback())
+        return build_api_response(HTTPStatus.BAD_REQUEST)
+
+
+def get_leads():
+    try:
+
+        leads = Lead.query.order_by(Lead.id).all()
+        return build_api_response(HTTPStatus.OK, leads_schema.dump(leads))
+
+    except Exception as error:
+        print(error)
         return build_api_response(HTTPStatus.BAD_REQUEST)

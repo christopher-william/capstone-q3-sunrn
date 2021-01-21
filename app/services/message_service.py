@@ -1,6 +1,7 @@
 from http import HTTPStatus
 
-from app.models import Lead, Message, lead_schema, message_schema, simulations_schema
+from ..models import Lead, Message
+from ..schema import lead_schema, message_schema, simulations_schema
 from flask import current_app
 
 from .http_service import build_api_response
@@ -22,7 +23,8 @@ def create_message(data):
 
         return build_api_response(HTTPStatus.CREATED, message_schema.dump(message))
 
-    except:
+    except Exception as error:
+        print(error)
         return build_api_response(HTTPStatus.BAD_REQUEST)
 
 
@@ -35,5 +37,6 @@ def get_message(message_id):
         
         return build_api_response(HTTPStatus.OK, message_schema_rs)
 
-    except:
+    except Exception as error:
+        print(error)
         return build_api_response(HTTPStatus.BAD_REQUEST)
