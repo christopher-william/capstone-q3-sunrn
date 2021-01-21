@@ -12,15 +12,19 @@ def get_uf_or_all(**kwargs):
         return "Not found", HTTPStatus.NOT_FOUND
     
     try:
-        uf = ufs_dict[request_uf]
-        ufs = Hsp.query.filter_by(uf=uf).all()
-        if not len(ufs):
-            return build_api_response(HTTPStatus.BAD_REQUEST)
+        if request_uf:
+            uf = ufs_dict[request_uf]
+            ufs = Hsp.query.filter_by(uf=uf).all()
+            if not len(ufs):
+                return build_api_response(HTTPStatus.BAD_REQUEST)
 
-        return build_api_response(HTTPStatus.OK, {
-            "data": hsps_schema.dump(ufs)})
+            return build_api_response(HTTPStatus.OK, {
+                "data": hsps_schema.dump(ufs)})
+
+        else:
+            uf_list = list(ufs_dict.keys())
+
+            return build_api_response(HTTPStatus.OK, {"uf": uf_list })
 
     except:
-        uf_list = list(ufs_dict.keys())
-
-        return build_api_response(HTTPStatus.OK, {"uf": uf_list })
+        return "Internal server error", HTTPStatus.INTERNAL_SERVER_ERROR
