@@ -22,7 +22,6 @@ class HspSchema(ma.SQLAlchemySchema):
     id = ma.auto_field()
     city = ma.auto_field()
     uf = ma.auto_field()
-    lead_id = ma.auto_field()
 
 
 hsp_schema = HspSchema()

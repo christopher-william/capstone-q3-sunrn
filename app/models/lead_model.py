@@ -22,14 +22,15 @@ class LeadSchema(ma.SQLAlchemySchema):
 
     class Meta:
 
-        model = Lead
+        # model = Lead
+        fields = ('id', 'name', 'email', 'phone', 'energy_id')
 
-    id = ma.auto_field()
-    name = ma.auto_field()
-    email = ma.auto_field()
-    phone = ma.auto_field()
+    # id = ma.auto_field()
+    # name = ma.auto_field()
+    # email = ma.auto_field()
+    # phone = ma.auto_field()
 
-    energy_id = ma.auto_field()
+    # energy_id = ma.auto_field()
 
 
 lead_schema = LeadSchema()

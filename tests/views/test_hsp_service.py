@@ -45,7 +45,7 @@ def test_get_all_cities_in_database(client):
 
 def test_get_one_city_in_database(client):
 
-    random_city = HSP_JSON['uf'][random.randint(0, len(HSP_JSON['uf']))]
+    random_city = HSP_JSON['uf'][random.randint(0, len(HSP_JSON['uf']) -1)]
 
     response = client.get(f'/hsp/{random_city}')
 
@@ -53,7 +53,7 @@ def test_get_one_city_in_database(client):
 
     for city in hsp_result['data']:
 
-        for key in ("id", "lead_id", "uf", "city"):
+        for key in ("id", "uf", "city"):
             assert key in city
 
         assert city['uf'] == random_city

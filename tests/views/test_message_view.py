@@ -36,7 +36,6 @@ def test_dict_create_message_with_status_201(client):
         """SELECT id FROM message ORDER BY ID DESC LIMIT 1""")[0][0]
 
     data_expected.update({'id': last_message_id})
-    id_message_create = last_message_id
 
     assert sorted(data_result.keys()) == sorted(data_expected.keys())
     assert sorted([str(i) for i in data_result.values()]) == sorted(
@@ -45,7 +44,12 @@ def test_dict_create_message_with_status_201(client):
 
 def test_dict_of_get_lead_and_message_with_status_200(client):
     """pega o lead e as messagens e verifica o status"""
-    response = client.get(f'/message/{1}')
+
+    message_id = execute_sql_comand_in_database(
+        """SELECT id FROM message ORDER BY ID DESC LIMIT 1""")[0][0]
+
+    print(message_id)
+    response = client.get(f'/message/{message_id}')
 
     status_result = response.status_code
     data_result = json.loads(response.data)
@@ -56,15 +60,10 @@ def test_dict_of_get_lead_and_message_with_status_200(client):
     lead_result = data_result['lead'].copy()
     message_result = data_result['message'].copy()
 
-    print(execute_sql_comand_in_database(
-        f"""SELECT id, energy_id, phone, name, email FROM lead WHERE lead.id = {1}"""
-    )[0])
+    print(lead_result, message_result)
 
     id, energy_id, phone, name, email = execute_sql_comand_in_database(
-        f"""SELECT id, energy_id, phone, name, email FROM lead WHERE lead.id = {1}"""
-    )[0]
-    id, seller_id, lead_id, message, classification = execute_sql_comand_in_database(
-        f"""SELECT id, seller_id, lead_id, message, classification FROM message WHERE message.lead_id = {1}"""
+        f"""SELECT id, energy_id, phone, name, email FROM lead WHERE lead.id = {lead_result['id']}"""
     )[0]
 
     lead_expected = {
@@ -75,6 +74,11 @@ def test_dict_of_get_lead_and_message_with_status_200(client):
         'email': email
     }
 
+    id, seller_id, lead_id, message, classification = execute_sql_comand_in_database(
+        f"""SELECT id, seller_id, lead_id, message, classification 
+        FROM message WHERE message.lead_id = {message_result['lead_id']}"""
+    )[0]
+
     message_expected = {
         'id': id,
         'seller_id': seller_id,
@@ -82,6 +86,9 @@ def test_dict_of_get_lead_and_message_with_status_200(client):
         'message': message,
         'classification': classification
     }
+
+    print(lead_expected, message_expected)
+
 
     assert sorted(lead_result.keys()) == sorted(lead_expected.keys())
     assert sorted([str(i) for i in lead_result.values()]) == sorted(
