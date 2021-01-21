@@ -29,29 +29,30 @@ def post_lead(data):
             month_value=data["month_value"]
         )
 
-        print(energy_data.__dict__)
-
-        # session.add(energy_data)
-        # session.commit()
-
-        print(energy_data.__dict__)
-
         simulation_data = roi_calc(
             energy_data, inverter_list,
             panel_list, hsp
         )
 
+        session.add(energy_data)
+        session.commit()
+        energy_dict = energy_data_schema.dump(energy_data)
+
         lead = Lead(
             name=data['name'], email=data['email'],
-            phone=data['phone'], energy_id=energy_data.id
+            phone=data['phone'], energy_id=energy_dict['id']
         )
 
+        session.add(lead)
+        session.commit()
+        lead_dict = lead_schema.dump(lead)
+
         hsplead = HspLead(
-            hsp_id=hsp.id, lead_id=lead.id
+            hsp_id=hsp.id, lead_id=lead_dict['id']
         )
 
         simulation = Simulation(
-            lead_id=lead.id,
+            lead_id=lead_dict['id'],
             panel_id=simulation_data['panel']['id'],
             panel_quantity=simulation_data['panel']['quantity'],
             inversor_id=simulation_data['inversor']['id'],
@@ -65,14 +66,9 @@ def post_lead(data):
             roi_years=simulation_data['roi_years']
         )
 
-        # session.add(energy_data)
-        # session.add(simulation)
-        # session.add(lead)
-        # session.add(hsplead)
-        # session.commit()
-
-        data = simulation_schema.dump(simulation)
-        print(data, simulation_data)
+        session.add(hsplead)
+        session.add(simulation)
+        session.commit()
 
         return build_api_response(HTTPStatus.CREATED, simulation_data)
 
