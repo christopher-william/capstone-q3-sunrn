@@ -2,6 +2,7 @@
 from ..models import Hsp
 from . import ma
 
+
 class HspSchema(ma.SQLAlchemySchema):
     class Meta:
 

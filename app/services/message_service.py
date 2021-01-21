@@ -1,10 +1,11 @@
 from http import HTTPStatus
 
-from ..models import Lead, Message
-from ..schema import lead_schema, message_schema, simulations_schema
 from flask import current_app
 
+from ..models import Lead, Message
+from ..schema import lead_schema, message_schema, simulations_schema
 from .http_service import build_api_response
+
 
 def create_message(data):
 
@@ -32,9 +33,9 @@ def get_message(message_id):
 
     try:
 
-        message = Message.query.get(message_id)
+        message = Message.query.get_or_404(message_id)
         message_schema_rs = message_schema.dump(message)
-        
+
         return build_api_response(HTTPStatus.OK, message_schema_rs)
 
     except Exception as error:

@@ -2,7 +2,6 @@ from http import HTTPStatus
 
 from ..models import Hsp
 from ..schema import hsps_schema
-
 from .http_service import build_api_response, build_response_message
 from .uf_dict_service import ufs_dict
 

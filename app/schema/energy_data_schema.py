@@ -3,6 +3,7 @@ from marshmallow import fields
 from ..models import EnergyData
 from . import ma
 
+
 class EnergyDataSchema(ma.SQLAlchemySchema):
     class Meta:
 

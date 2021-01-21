@@ -1,4 +1,4 @@
-from . import db, ma
+from . import db
 
 
 class HspLead(db.Model):

@@ -1,8 +1,8 @@
 from marshmallow import fields
-from .simulation_schema import SimulationSchema
 
 from ..models import Lead
 from . import ma
+from .simulation_schema import SimulationSchema
 
 
 class LeadSchema(ma.SQLAlchemySchema):
@@ -19,7 +19,8 @@ class LeadSchema(ma.SQLAlchemySchema):
     phone = ma.auto_field()
 
     energy_id = ma.auto_field()
-    simulations = fields.Nested(SimulationSchema(many=True, only=('project_cost',)))
+    # simulations = fields.Nested(SimulationSchema(many=True, only=('project_cost',)))
+    simulations = fields.Nested(SimulationSchema(many=True))
 
 
 lead_schema = LeadSchema()

@@ -1,12 +1,14 @@
 from http import HTTPStatus
+from operator import le
 
 from app.models import (EnergyData, Hsp, HspLead, InverterPrice, Lead, Message,
                         PanelPrice, Simulation)
-from ..schema import lead_schema, leads_schema,messages_schema, simulations_schema
 from app.services.calculate_roi_panel_service import roi_calc
 from app.services.http_service import build_api_response
 from flask import current_app
 
+from ..schema import (lead_schema, leads_schema, messages_schema,
+                      simulations_schema)
 from .http_service import build_api_response
 
 
@@ -101,11 +103,14 @@ def get_lead_all_message(lead_id):
     try:
 
         lead = Lead.query.get(lead_id)
-        messages = Message.query.filter_by(lead_id=lead_id)
-
         lead_schema_rs = lead_schema.dump(lead)
+
+        if not lead:
+            return build_api_response(HTTPStatus.NOT_FOUND)
+
+        messages = Message.query.filter_by(lead_id=lead_id)
         messages_schema_rs = messages_schema.dump(messages)
-        
+
         lead_and_all_messages = {
             "lead": lead_schema_rs,
             "messages": messages_schema_rs

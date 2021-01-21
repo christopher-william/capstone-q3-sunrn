@@ -1,6 +1,7 @@
 from ..models import InverterPrice
 from . import ma
 
+
 class InverterPriceSchema(ma.SQLAlchemySchema):
 
     class Meta:

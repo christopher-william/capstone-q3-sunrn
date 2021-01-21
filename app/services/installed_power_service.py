@@ -1,4 +1,4 @@
-from app.models import Hsp, EnergyData
+from app.models import EnergyData, Hsp
 
 
 def installed_power(db_hsp: Hsp, energy_data: EnergyData):

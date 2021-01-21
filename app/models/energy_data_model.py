@@ -1,6 +1,4 @@
-from marshmallow import fields
-
-from . import db, ma
+from . import db
 
 
 class EnergyData(db.Model):
@@ -10,5 +8,3 @@ class EnergyData(db.Model):
     month_energy = db.Column(db.Numeric, nullable=False)
     month_value = db.Column(db.Numeric, nullable=False)
     leads = db.relationship('Lead', uselist=False)
-
-

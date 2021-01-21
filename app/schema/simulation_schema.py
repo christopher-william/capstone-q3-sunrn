@@ -3,6 +3,7 @@ from marshmallow import fields
 from ..models import Simulation
 from . import ma
 
+
 class SimulationSchema(ma.SQLAlchemySchema):
 
     class Meta:
