@@ -14,7 +14,7 @@ class Refresh(Resource):
         user_id = get_jwt_identity()
         acess_token = create_access_token(
             identity=user_id,
-            expires_delta=timedelta(days=0, seconds=3600)
+            expires_delta=timedelta(days=1)
         )
         refresh_token = create_refresh_token(
             identity=user_id,

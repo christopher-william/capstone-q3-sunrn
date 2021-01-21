@@ -17,7 +17,7 @@ def login_seller(data):
             email=data['email'], password=encoded_password).first()
 
         acess_token = create_access_token(
-            identity=seller.id, expires_delta=timedelta(days=0, seconds=3600))
+            identity=seller.id, expires_delta=timedelta(days=1))
         refresh_token = create_refresh_token(
             identity=seller.id, expires_delta=timedelta(days=7))
 
