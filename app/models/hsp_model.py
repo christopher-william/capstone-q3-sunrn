@@ -11,7 +11,7 @@ class Hsp(db.Model):
     lon = db.Column(db.Numeric, nullable=False)
     lat = db.Column(db.Numeric, nullable=False)
 
-    lead_id = db.relationship('Lead', secondary='hsp_lead')
+    lead = db.relationship('Lead', secondary='hsp_lead')
 
 
 class HspSchema(ma.SQLAlchemySchema):

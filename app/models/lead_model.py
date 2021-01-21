@@ -14,27 +14,22 @@ class Lead(db.Model):
     energy_id = db.Column(db.Integer, db.ForeignKey('energy_data.id'))
 
     simulation = db.relationship('Simulation')
-    hsp_id = db.relationship('Hsp', secondary='hsp_lead')
-    seller_id = db.relationship('Seller', secondary='message')
+    hsp = db.relationship('Hsp', secondary='hsp_lead')
+    seller = db.relationship('Seller', secondary='message')
 
 
 class LeadSchema(ma.SQLAlchemySchema):
 
     class Meta:
 
-        # model = Lead
-        fields = ("id", "name", "email", "phone", "energy_id")
+        model = Lead
 
-    # id = ma.auto_field()
-    # name = ma.auto_field()
-    # email = ma.auto_field()
-    # phone = ma.auto_field()
+    id = ma.auto_field()
+    name = ma.auto_field()
+    email = ma.auto_field()
+    phone = ma.auto_field()
 
-    # energy_id = ma.auto_field()
-
-    # simulation = fields.Nasted('Simulations')
-    # hsp_id = ma.auto_field()
-    # seller_id = ma.auto_field()
+    energy_id = ma.auto_field()
 
 
 lead_schema = LeadSchema()

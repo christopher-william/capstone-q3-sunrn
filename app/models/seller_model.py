@@ -14,15 +14,13 @@ class Seller(db.Model):
 class SellerSchema(ma.SQLAlchemySchema):
     class Meta:
 
-        # model = Seller
-        fields = ("id", "name", "email", "password", "lead_id")
+        model = Seller
 
-    # id = ma.auto_field()
-    # name = ma.auto_field()
-    # email = ma.auto_field()
-    # password = ma.auto_field()
-    # lead_id = ma.auto_field()
-
+    id = ma.auto_field()
+    name = ma.auto_field()
+    email = ma.auto_field()
+    password = ma.auto_field()
+    lead_id = ma.auto_field()
 
 seller_schema = SellerSchema()
 sellers_schema = SellerSchema(many=True)
