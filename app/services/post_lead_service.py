@@ -10,17 +10,15 @@ from app.services.http_service import build_api_response
 from app.services.lead_service import create_lead
 
 
-def get_energy_data(data, inverter_list, panel_list, hsp):
-    return (energy_data, simulation_data, hsp,)
-
-def post_lead(data):
+def get_energy_data(data):
     session = current_app.db.session
-
     
-    panel_list = PanelPrice.query.order_by(PanelPrice.power).all()
+    panel_list = PanelPrice.query.order_by(
+        PanelPrice.power).all()
 
     inverter_list = InverterPrice.query.order_by(
         InverterPrice.power).all()
+    
     hsp = Hsp.query.filter_by(id=data["hsp_id"]).first()
 
     energy_data = EnergyData(
@@ -28,11 +26,18 @@ def post_lead(data):
         month_value=data["month_value"]
     )
     session.add(energy_data)
+    
     simulation_data = roi_calc(
-        energy_data, inverter_list,
-        panel_list, hsp
+        energy_data, inverter_list, panel_list, hsp
     )
+    
     session.commit()
+    
+    return (energy_data, simulation_data, hsp,)
+
+
+def get_lead(data, energy_data):
+    session = current_app.db.session
     
     lead = Lead(
         name=data['name'], email=data['email'],
@@ -40,13 +45,13 @@ def post_lead(data):
     )
     session.add(lead)
     session.commit()
+
+    return lead
     
-    hsplead = HspLead(
-        hsp_id=hsp.id, lead_id=lead.id
-    )
-    
-    energy_dict = energy_data_schema.dump(energy_data)
-    
+
+def get_simulation(lead, simulation_data):
+    session = current_app.db.session
+
     simulation = Simulation(
         lead_id=lead.id,
         panel_id=simulation_data['panel']['id'],
@@ -61,8 +66,26 @@ def post_lead(data):
         total_system_cost=simulation_data['total_system_cost'],
         roi_years=simulation_data['roi_years']
     )
-
-    
     session.add(simulation)
+    session.commit()
+    return simulation
+
+def post_lead(data):
+    session = current_app.db.session
+    
+    energy_data, simulation_data, hsp = get_energy_data(
+        data
+    )
+    
+    lead = get_lead(data, energy_data)
+    
+    simulation = get_simulation(lead, simulation_data)
+    
+    hsplead = HspLead(
+        hsp_id=hsp.id, lead_id=lead.id
+    )
+    
     session.add(hsplead)
     session.commit()
+    
+    return simulation_data
