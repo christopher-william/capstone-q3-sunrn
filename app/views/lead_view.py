@@ -1,18 +1,14 @@
-
-from app.services.lead_service import create_lead
+from app.services.post_lead_service import post_lead
 from flask import request
 from flask_restful import Resource
+from app.services.post_lead_service import post_lead
 
 
-class Lead(Resource):
+class LeadView(Resource):
 
     def post(self):
-
         data = request.get_json()
 
-        response = create_lead()
-
-        # faser calculos de lead
-        # EXP: response = calculos_de_lead()
-
+        response = post_lead(data)
+        
         return response
