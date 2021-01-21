@@ -37,8 +37,6 @@ def get_lead_and_message(id):
         lead_schema_rs = lead_schema.dump(lead)
         message_schema_rs = message_schema.dump(message)
 
-        lead_schema_rs.pop('seller_id')
-
         message_and_lead_schema = {
             "lead": lead_schema_rs,
             "message": message_schema_rs

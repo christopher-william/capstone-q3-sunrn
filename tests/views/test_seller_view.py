@@ -39,13 +39,16 @@ def test_create_seller(client):
         """SELECT id, name, email FROM seller"""
     )[-1]
 
-    last_seller = {"id": id, "name": name, "email": email}
+    seller_expected = {"id": id, "name": name, "email": email}
+    seller_result = data_result['user']
+    auth_token_result = data_result['auth_token']
 
-    assert sorted(data_result['user'].keys()) == sorted(last_seller.keys())
-    assert sorted(data_result['user'].values()) == sorted(last_seller.values())
+    assert sorted(seller_result.keys()) == sorted(seller_expected.keys())
+    assert sorted([str(i) for i in seller_result.values()]) == sorted(
+        [str(i) for i in seller_expected.values()])
 
-    assert type(data_result['auth_token']) is str
-    assert len(data_result['auth_token']) > 15
+    assert type(auth_token_result) is str
+    assert len(auth_token_result) > 15
 
 
 def test_login_seller(client):
@@ -63,9 +66,13 @@ def test_login_seller(client):
         f"""SELECT id, name , email FROM seller WHERE seller.email = '{json_data['email']}'"""
     )[0]
 
-    lead_logged = {"id": id, "name": name, "email": email}
+    seller_expected = {"id": id, "name": name, "email": email}
+    seller_result = data_result['user']
+    auth_token_result = data_result['auth_token']
 
-    assert data_result['user'] == lead_logged
+    assert sorted(seller_result.keys()) == sorted(seller_expected.keys())
+    assert sorted([str(i) for i in seller_result.values()]) == sorted(
+        [str(i) for i in seller_expected.values()])
 
-    assert type(data_result['auth_token']) is str
-    assert len(data_result['auth_token']) > 15
+    assert type(auth_token_result) is str
+    assert len(auth_token_result) > 15
