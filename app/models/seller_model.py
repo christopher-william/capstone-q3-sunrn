@@ -1,4 +1,4 @@
-from . import db, ma
+from . import db
 
 
 class Seller(db.Model):
@@ -8,14 +8,4 @@ class Seller(db.Model):
     name = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String(100), unique=True, nullable=False)
     password = db.Column(db.String, nullable=False)
-    lead_id = db.relationship('Lead', secondary='message')
-
-
-class SellerSchema(ma.SQLAlchemySchema):
-    class Meta:
-
-        fields = ('id', 'name', 'email', 'password', 'lead_id')
-
-
-seller_schema = SellerSchema()
-sellers_schema = SellerSchema(many=True)
+    lead_id = db.Column(db.Integer, db.ForeignKey('lead.id'))

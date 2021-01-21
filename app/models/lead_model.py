@@ -1,6 +1,4 @@
-from marshmallow import fields
-
-from . import db, ma
+from . import db
 
 
 class Lead(db.Model):
@@ -13,18 +11,6 @@ class Lead(db.Model):
 
     energy_id = db.Column(db.Integer, db.ForeignKey('energy_data.id'))
 
-    simulation = db.relationship('Simulation')
+    simulations = db.relationship('Simulation')
     hsp = db.relationship('Hsp', secondary='hsp_lead')
     seller = db.relationship('Seller', secondary='message')
-
-
-class LeadSchema(ma.SQLAlchemySchema):
-
-    class Meta:
-
-        fields = ('id', 'name', 'email', 'phone', 'energy_id')
-
-
-
-lead_schema = LeadSchema()
-leads_schema = LeadSchema(many=True)

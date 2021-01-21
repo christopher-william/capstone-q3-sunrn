@@ -1,8 +1,7 @@
 import json
 
-from app.models import (EnergyData, Hsp, PanelPrice, energy_data_model,
-                        inversor_price_schema, panel_price_schema)
-
+from ..models import EnergyData, Hsp, PanelPrice, energy_data_model
+from ..schema import inversor_price_schema, panel_price_schema
 from .installed_power_service import installed_power
 
 
