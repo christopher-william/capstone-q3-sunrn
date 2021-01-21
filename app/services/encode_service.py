@@ -5,8 +5,8 @@ def encode_password(data):
     try:
         criptography = jwt.encode(
             {'email': data['email']}, data['password'], algorithm="HS256")
-    
+
     except:
         return None
 
-    return criptography.decode("utf-8") 
+    return criptography.decode("utf-8")

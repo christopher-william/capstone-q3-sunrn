@@ -1,7 +1,6 @@
 from datetime import timedelta
 from http import HTTPStatus
 
-from app.models import db
 from app.models.seller_model import Seller
 from app.services.encode_service import encode_password
 from flask import current_app

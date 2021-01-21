@@ -1,7 +1,9 @@
+from secrets import token_hex
+
 from environs import Env
 from flask import Flask
-from secrets import token_hex
 from flask_jwt_extended import JWTManager
+
 from .models import configure as db_configure
 from .views import configure as views_configure
 
@@ -20,6 +22,5 @@ def create_app(mode='development'):
     db_configure(app)
     views_configure(app)
     JWTManager(app)
-    
 
     return app

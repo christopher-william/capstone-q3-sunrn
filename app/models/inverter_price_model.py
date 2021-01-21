@@ -14,7 +14,7 @@ class InverterPrice(db.Model):
 class InverterPriceSchema(ma.SQLAlchemySchema):
 
     class Meta:
-        
+
         model = InverterPrice
 
     id = ma.auto_field()

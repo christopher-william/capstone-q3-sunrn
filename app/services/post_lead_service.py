@@ -1,9 +1,9 @@
 from http import HTTPStatus
 
-from app.models import (EnergyData, Hsp, HspLead, InverterPrice, Lead,
+from app.models import (EnergyData, Hsp, HspLead, InverterPrice, Lead, Message,
                         PanelPrice, Simulation, energy_data_schema,
-                        simulation_schema)
-from app.models.lead_model import Lead, lead_schema
+                        lead_schema, messages_schema, simulation_schema,
+                        simulations_schema)
 from app.services.calculate_roi_panel_service import roi_calc
 from app.services.http_service import build_api_response
 from flask import current_app, request
@@ -15,13 +15,13 @@ from .http_service import build_api_response
 def get_energy_data(data):
 
     session = current_app.db.session
-    
+
     panel_list = PanelPrice.query.order_by(
         PanelPrice.power).all()
 
     inverter_list = InverterPrice.query.order_by(
         InverterPrice.power).all()
-    
+
     hsp = Hsp.query.filter_by(id=data["hsp_id"]).first()
 
     energy_data = EnergyData(
@@ -29,19 +29,19 @@ def get_energy_data(data):
         month_value=data["month_value"]
     )
     session.add(energy_data)
-    
+
     simulation_data = roi_calc(
         energy_data, inverter_list, panel_list, hsp
     )
-    
+
     session.commit()
-    
+
     return (energy_data, simulation_data, hsp,)
 
 
 def get_lead(data, energy_data):
     session = current_app.db.session
-    
+
     lead = Lead(
         name=data['name'], email=data['email'],
         phone=data['phone'], energy_id=energy_data.id
@@ -50,7 +50,7 @@ def get_lead(data, energy_data):
     session.commit()
 
     return lead
-    
+
 
 def get_simulation(lead, simulation_data):
     session = current_app.db.session
@@ -71,29 +71,51 @@ def get_simulation(lead, simulation_data):
     )
     session.add(simulation)
     session.commit()
-    return simulation
+
 
 def post_lead(data):
     try:
         session = current_app.db.session
-        
+
         energy_data, simulation_data, hsp = get_energy_data(
             data
         )
-        
+
         lead = get_lead(data, energy_data)
-        
-        simulation = get_simulation(lead, simulation_data)
-        
+        get_simulation(lead, simulation_data)
+
         hsplead = HspLead(
             hsp_id=hsp.id, lead_id=lead.id
         )
-        
+
         session.add(hsplead)
         session.commit()
-    
+
         return build_api_response(HTTPStatus.CREATED, simulation_data)
 
     except IntegrityError:
         return build_api_response(HTTPStatus.BAD_REQUEST)
-    
+
+
+def get_lead_all_message(lead_id):
+
+    try:
+
+        lead = Lead.query.get(lead_id)
+        messages = Message.query.filter_by(lead_id=lead_id)
+
+        lead_schema_rs = lead_schema.dump(lead)
+        messages_schema_rs = messages_schema.dump(messages)
+
+        lead_schema_rs['simulations'] = simulations_schema.dump(
+            lead_schema_rs['simulations'])
+
+        lead_and_all_messages = {
+            "lead": lead_schema_rs,
+            "messages": messages_schema_rs
+        }
+
+        return build_api_response(HTTPStatus.OK, lead_and_all_messages)
+
+    except:
+        return build_api_response(HTTPStatus.BAD_REQUEST)
