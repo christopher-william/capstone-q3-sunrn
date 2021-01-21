@@ -1,3 +1,5 @@
+from marshmallow import fields
+
 from . import db, ma
 
 
@@ -36,6 +38,7 @@ class SimulationSchema(ma.SQLAlchemySchema):
     total_system_cost = ma.auto_field()
     roi_years = ma.auto_field()
     panel_quantity = ma.auto_field()
+
     lead_id = ma.auto_field()
     panel_id = ma.auto_field()
     inversor_id = ma.auto_field()

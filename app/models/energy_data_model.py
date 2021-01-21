@@ -18,7 +18,6 @@ class EnergyDataSchema(ma.SQLAlchemySchema):
     id = ma.auto_field()
     month_energy = ma.auto_field()
     month_value = ma.auto_field()
-    leads = ma.auto_field()
 
 
 energy_data_schema = EnergyDataSchema()

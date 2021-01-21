@@ -10,7 +10,7 @@ class Message(db.Model):
     lead_id = db.Column(db.Integer, db.ForeignKey(
         'lead.id', onupdate='CASCADE', ondelete='CASCADE'))
     seller_id = db.Column(db.Integer, db.ForeignKey(
-        'seller.id', onupdate='CASCADE',ondelete='CASCADE'))
+        'seller.id', onupdate='CASCADE', ondelete='CASCADE'))
 
 
 class MessageSchema(ma.SQLAlchemySchema):
