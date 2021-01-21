@@ -102,7 +102,6 @@ def post_lead(data):
 def get_leads():
     try:
         leads = Lead.query.order_by(Lead.id).all()
-        print(leads_schema.dump(leads))
         return build_api_response(HTTPStatus.OK, leads_schema.dump(leads))
     except:
         return build_api_response(HTTPStatus.BAD_REQUEST)
