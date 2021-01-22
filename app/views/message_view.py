@@ -6,7 +6,8 @@ from flask_restful import Resource
 from flask_jwt_extended import jwt_required
 
 class Message(Resource):
-
+    
+    @jwt_required
     def get(self, message_id):
 
         request = get_message(message_id)

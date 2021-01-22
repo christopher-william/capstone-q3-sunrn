@@ -13,7 +13,7 @@ configs = {
 }
 
 
-def create_app(config='development'):
+def create_app(config='test'):
     env = Env()
     env.read_env()
 
